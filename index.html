@@ -1,361 +1,615 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="id">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Pagodev - Solusi Pengembangan Website & Aplikasi Timika</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
-    
-    <style>
-        body {
-            font-family: 'Poppins', sans-serif;
-            color: #333;
-            scroll-behavior: smooth;
-        }
-        .navbar-brand {
-            font-weight: 700;
-            color: #0d6efd !important;
-            letter-spacing: 1px;
-        }
-        /* Hero Section dengan nuansa profesional & aksen alam */
-        .hero-section {
-            background: linear-gradient(135deg, #0f2027 0%, #203a43 50%, #2c5364 100%);
-            color: white;
-            padding: 100px 0;
-            position: relative;
-            overflow: hidden;
-        }
-        .hero-section::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            height: 50px;
-            background: #fff;
-            clip-path: polygon(0 100%, 100% 100%, 100% 0);
-        }
-        .btn-cta {
-            padding: 12px 30px;
-            font-weight: 600;
-            border-radius: 30px;
-            transition: all 0.3s ease;
-        }
-        .btn-cta:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
-        }
-        .section-title {
-            font-weight: 700;
-            position: relative;
-            margin-bottom: 40px;
-            padding-bottom: 15px;
-        }
-        .section-title::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 60px;
-            height: 4px;
-            background-color: #198754; /* Aksen Hijau Alam Papua */
-            border-radius: 2px;
-        }
-        /* Service Cards */
-        .service-card {
-            border: none;
-            border-radius: 15px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
-            transition: all 0.3s ease;
-            height: 100%;
-        }
-        .service-card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 15px 35px rgba(0,0,0,0.1);
-        }
-        .service-icon {
-            font-size: 3rem;
-            color: #0d6efd;
-            margin-bottom: 20px;
-        }
-        /* Portfolio Cards */
-        .portfolio-item {
-            border-radius: 12px;
-            overflow: hidden;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.08);
-            margin-bottom: 30px;
-        }
-        .portfolio-img {
-            height: 220px;
-            background-color: #e9ecef;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: #6c757d;
-            font-size: 3rem;
-        }
-        .footer {
-            background-color: #111;
-            color: #aaa;
-            padding: 40px 0;
-        }
-    </style>
-</head>
-<body>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
 
-    <nav class="navbar navbar-expand-lg navbar-light bg-white sticky-top shadow-sm">
-        <div class="container">
-            <a class="navbar-brand" href="#"><i class="fa-solid fa-code me-2"></i>PAGODEV</a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav ms-auto">
-                    <li class="nav-item"><a class="nav-link active" href="#beranda">Beranda</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#tentang">Tentang Kami</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#layanan">Layanan</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#portofolio">Portofolio</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#kontak">Kontak</a></li>
-                </ul>
-            </div>
+    <style>
+      :root {
+        --pagodev-blue: #0a369d; /* Biru Kobalt Utama */
+        --pagodev-blue-dark: #07246a; /* Biru Gelap Hover */
+        --pagodev-red: #d90429; /* Merah Crimson Aksen/CTA */
+        --pagodev-red-dark: #b00320; /* Merah Gelap Hover */
+        --pagodev-dark: #1a1d20; /* Hitam Slate Teks & Struktur */
+        --pagodev-light: #f8f9fa; /* Latar Abu-abu Tipis */
+      }
+
+      body {
+        font-family: "Plus Jakarta Sans", sans-serif;
+        color: var(--pagodev-dark);
+        background-color: #ffffff;
+        scroll-behavior: smooth;
+      }
+
+      /* Navbar Header */
+      .navbar {
+        background-color: #ffffff !important;
+        border-bottom: 3px solid var(--pagodev-blue);
+      }
+      .navbar-brand {
+        font-weight: 800;
+        color: var(--pagodev-blue) !important;
+        font-size: 1.5rem;
+        letter-spacing: -0.5px;
+      }
+      .navbar-brand span {
+        color: var(--pagodev-red);
+      }
+      .nav-link {
+        color: var(--pagodev-dark) !important;
+        font-weight: 600;
+        margin: 0 5px;
+      }
+      .nav-link:hover,
+      .nav-link.active {
+        color: var(--pagodev-blue) !important;
+      }
+
+      /* Hero Section */
+      .hero-section {
+        padding: 100px 0 80px;
+        background: linear-gradient(
+          180deg,
+          #ffffff 0%,
+          var(--pagodev-light) 100%
+        );
+        position: relative;
+      }
+      .hero-title {
+        font-weight: 800;
+        color: var(--pagodev-dark);
+        font-size: 2.8rem;
+        line-height: 1.25;
+      }
+      .hero-title span {
+        color: var(--pagodev-blue);
+      }
+
+      /* Buttons Custom */
+      .btn-pagodev-red {
+        background-color: var(--pagodev-red);
+        color: #ffffff;
+        font-weight: 700;
+        padding: 12px 28px;
+        border-radius: 8px;
+        border: none;
+        transition: all 0.3s ease;
+        box-shadow: 0 4px 14px rgba(217, 4, 41, 0.3);
+      }
+      .btn-pagodev-red:hover {
+        background-color: var(--pagodev-red-dark);
+        color: #ffffff;
+        transform: translateY(-2px);
+        box-shadow: 0 6px 20px rgba(217, 4, 41, 0.4);
+      }
+      .btn-pagodev-outline {
+        border: 2px solid var(--pagodev-blue);
+        color: var(--pagodev-blue);
+        font-weight: 700;
+        padding: 10px 26px;
+        border-radius: 8px;
+        transition: all 0.3s ease;
+        background-color: transparent;
+      }
+      .btn-pagodev-outline:hover {
+        background-color: var(--pagodev-blue);
+        color: #ffffff;
+      }
+
+      /* Judul Bagian / Section Title */
+      .section-title {
+        font-weight: 800;
+        color: var(--pagodev-dark);
+        position: relative;
+        display: inline-block;
+        margin-bottom: 15px;
+      }
+      .section-title::after {
+        content: "";
+        display: block;
+        width: 50%;
+        height: 4px;
+        background: var(--pagodev-red);
+        margin: 8px auto 0;
+        border-radius: 2px;
+      }
+
+      /* Card Layanan & Fitur */
+      .service-card {
+        border: 1px solid #e9ecef;
+        border-radius: 12px;
+        background: #ffffff;
+        transition: all 0.3s ease;
+        border-top: 4px solid var(--pagodev-blue);
+        height: 100%;
+      }
+      .service-card:hover {
+        transform: translateY(-8px);
+        box-shadow: 0 12px 25px rgba(10, 54, 157, 0.12);
+        border-top-color: var(--pagodev-red);
+      }
+      .service-card.cta-box {
+        background: linear-gradient(
+          135deg,
+          var(--pagodev-blue) 0%,
+          var(--pagodev-blue-dark) 100%
+        );
+        border-top: 4px solid var(--pagodev-red);
+      }
+      .service-icon {
+        font-size: 2.8rem;
+        color: var(--pagodev-blue);
+        margin-bottom: 15px;
+      }
+
+      /* Card Portofolio */
+      .portfolio-item {
+        border: 1px solid #e9ecef;
+        border-radius: 12px;
+        overflow: hidden;
+        background: #ffffff;
+        transition: all 0.3s ease;
+        border-top: 3px solid var(--pagodev-blue);
+      }
+      .portfolio-item:hover {
+        transform: translateY(-6px);
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.08);
+        border-top-color: var(--pagodev-red);
+      }
+      .portfolio-img {
+        height: 180px;
+        background-color: var(--pagodev-light);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: var(--pagodev-blue);
+        font-size: 3.5rem;
+      }
+
+      /* Ikon Fitur Tentang */
+      .feature-icon {
+        color: var(--pagodev-blue);
+      }
+
+      /* Footer */
+      .footer {
+        background-color: var(--pagodev-dark);
+        color: #d1d5db;
+        border-top: 4px solid var(--pagodev-red);
+        padding: 40px 0;
+      }
+    </style>
+  </head>
+  <body>
+    <nav class="navbar navbar-expand-lg sticky-top">
+      <div class="container">
+        <a class="navbar-brand" href="#"
+          ><i class="fa-solid fa-code me-2"></i>PAGO<span>DEV</span></a
+        >
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarNav"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav ms-auto">
+            <li class="nav-item">
+              <a class="nav-link active" href="#beranda">Beranda</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#tentang">Tentang Kami</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#layanan">Layanan</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#portofolio">Portofolio</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#kontak">Kontak</a>
+            </li>
+          </ul>
         </div>
+      </div>
     </nav>
 
     <section id="beranda" class="hero-section d-flex align-items-center">
-        <div class="container text-center my-5">
-            <div class="row justify-content-center">
-                <div class="col-lg-8">
-                    <span class="badge bg-success mb-3 px-3 py-2 fs-6">Timika, Papua Tengah</span>
-                    <h1 class="display-4 fw-bold mb-3 text-white">Solusi Website & Aplikasi Berbasis Web Terbaik</h1>
-                    <p class="lead mb-4 text-white-50">Pagodev hadir membantu digitalisasi sekolah, rumah sakit, bisnis, hingga komunitas keagamaan di Timika dengan sistem informasi terintegrasi dan profesional.</p>
-                    <a href="#kontak" class="btn btn-primary btn-cta btn-lg me-2"><i class="fa-brands fa-whatsapp me-2"></i>Konsultasi Gratis</a>
-                    <a href="#portofolio" class="btn btn-outline-light btn-cta btn-lg">Lihat Proyek</a>
-                </div>
+      <div class="container my-4 text-center">
+        <div class="row justify-content-center">
+          <div class="col-lg-9">
+            <span class="badge bg-danger text-white px-3 py-2 mb-3 fw-bold fs-6"
+              >TIMIKA, PAPUA TENGAH</span
+            >
+            <h1 class="hero-title mb-3">
+              Solusi Website & Aplikasi Berbasis Web Terbaik
+            </h1>
+            <p class="lead text-secondary mb-4">
+              Pagodev hadir membantu digitalisasi sekolah, rumah sakit, bisnis,
+              hingga komunitas keagamaan di Timika dengan sistem informasi
+              terintegrasi dan profesional.
+            </p>
+            <div class="d-flex justify-content-center gap-3">
+              <a href="#kontak" class="btn btn-pagodev-red"
+                ><i class="fa-brands fa-whatsapp me-2"></i>Konsultasi Gratis</a
+              >
+              <a href="#portofolio" class="btn btn-pagodev-outline"
+                >Lihat Proyek</a
+              >
             </div>
+          </div>
         </div>
+      </div>
     </section>
 
     <section id="tentang" class="py-5">
-        <div class="container my-4">
-            <div class="text-center">
-                <h2 class="section-title">Tentang Pagodev</h2>
-            </div>
-            <div class="row align-items-center mt-4">
-                <div class="col-md-6 mb-4 mb-md-0">
-                    <img src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&w=600&q=80" alt="Tim Kerja Pagodev" class="img-fluid rounded-3 shadow">
-                </div>
-                <div class="col-md-6">
-                    <h3>Memajukan Teknologi Digital Terdepan dari Timika</h3>
-                    <p class="text-muted mt-3">Pagodev adalah penyedia jasa pembuatan website dan sistem informasi lokal yang berbasis di Timika, Papua Tengah. Kami memahami betul kebutuhan transformasi digital bagi instansi dan bisnis di daerah ini.</p>
-                    <div class="row mt-4">
-                        <div class="col-6 mb-3">
-                            <h5><i class="fa-solid fa-circle-check text-success me-2"></i> Tim Ahli Lokal</h5>
-                            <p class="text-muted small">Komunikasi dan koordinasi proyek menjadi lebih mudah dan cepat.</p>
-                        </div>
-                        <div class="col-6 mb-3">
-                            <h5><i class="fa-solid fa-circle-check text-success me-2"></i> Kustomisasi Penuh</h5>
-                            <p class="text-muted small">Sistem dirancang sesuai alur kerja operasional instansi Anda.</p>
-                        </div>
-                        <div class="col-6">
-                            <h5><i class="fa-solid fa-circle-check text-success me-2"></i> Dukungan Purna Jual</h5>
-                            <p class="text-muted small">Pendampingan teknis dan perawatan berkala setelah aplikasi selesai.</p>
-                        </div>
-                        <div class="col-6">
-                            <h5><i class="fa-solid fa-circle-check text-success me-2"></i> Keamanan Data</h5>
-                            <p class="text-muted small">Sistem dilengkapi enkripsi perlindungan data tingkat tinggi.</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
+      <div class="container my-4">
+        <div class="text-center">
+          <h2 class="section-title">Tentang Pagodev</h2>
         </div>
+        <div class="row align-items-center mt-4">
+          <div class="col-md-6 mb-4 mb-md-0">
+            <img
+              src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&w=600&q=80"
+              alt="Tim Kerja Pagodev"
+              class="img-fluid rounded-4 shadow"
+            />
+          </div>
+          <div class="col-md-6">
+            <h3 class="fw-bold">
+              Memajukan Teknologi Digital Terdepan dari Timika
+            </h3>
+            <p class="text-muted mt-3">
+              Pagodev adalah penyedia jasa pembuatan website dan sistem
+              informasi lokal yang berbasis di Timika, Papua Tengah. Kami
+              memahami betul kebutuhan transformasi digital bagi instansi dan
+              bisnis di daerah ini.
+            </p>
+            <div class="row mt-4">
+              <div class="col-6 mb-3">
+                <h6 class="fw-bold">
+                  <i class="fa-solid fa-circle-check feature-icon me-2"></i> Tim
+                  Ahli Lokal
+                </h6>
+                <p class="text-muted small">
+                  Komunikasi dan koordinasi proyek menjadi lebih mudah dan
+                  cepat.
+                </p>
+              </div>
+              <div class="col-6 mb-3">
+                <h6 class="fw-bold">
+                  <i class="fa-solid fa-circle-check feature-icon me-2"></i>
+                  Kustomisasi Penuh
+                </h6>
+                <p class="text-muted small">
+                  Sistem dirancang sesuai alur kerja operasional instansi Anda.
+                </p>
+              </div>
+              <div class="col-6">
+                <h6 class="fw-bold">
+                  <i class="fa-solid fa-circle-check feature-icon me-2"></i>
+                  Dukungan Purna Jual
+                </h6>
+                <p class="text-muted small">
+                  Pendampingan teknis dan perawatan berkala setelah aplikasi
+                  selesai.
+                </p>
+              </div>
+              <div class="col-6">
+                <h6 class="fw-bold">
+                  <i class="fa-solid fa-circle-check feature-icon me-2"></i>
+                  Keamanan Data
+                </h6>
+                <p class="text-muted small">
+                  Sistem dilengkapi enkripsi perlindungan data tingkat tinggi.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </section>
 
     <section id="layanan" class="py-5 bg-light">
-        <div class="container my-4">
-            <div class="text-center">
-                <h2 class="section-title">Layanan Utama Kami</h2>
-                <p class="text-muted">Kategori aplikasi berbasis web spesifik yang kami kembangkan untuk kemudahan operasional Anda</p>
-            </div>
-            
-            <div class="row mt-5 g-4">
-                <div class="col-md-4">
-                    <div class="card service-card p-4 text-center">
-                        <div class="service-icon"><i class="fa-solid fa-graduation-cap"></i></div>
-                        <h4>Sekolah & Pendidikan</h4>
-                        <p class="text-muted small">Sistem Informasi Sekolah, E-Learning, PPDB Online, dan Manajemen Nilai Siswa yang transparan.</p>
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="card service-card p-4 text-center">
-                        <div class="service-icon text-danger"><i class="fa-solid fa-hospital"></i></div>
-                        <h4>Rumah Sakit & Kesehatan</h4>
-                        <p class="text-muted small">Sistem Informasi Rumah Sakit (SIRS), sistem rekam medis digital (EHR), dan modul pendaftaran pasien.</p>
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="card service-card p-4 text-center">
-                        <div class="service-icon text-success"><i class="fa-solid fa-briefcase"></i></div>
-                        <h4>Website Profil Bisnis</h4>
-                        <p class="text-muted small">Company profile interaktif untuk mengenalkan UMKM, perusahaan logistik, atau portofolio usaha ke pasar digital.</p>
-                    </div>
-                </div>
-                <div class="col-md-4 mt-md-4">
-                    <div class="card service-card p-4 text-center">
-                        <div class="service-icon text-warning"><i class="fa-solid fa-church"></i></div>
-                        <h4>Gereja & Komunitas</h4>
-                        <p class="text-muted small">Website informasi jemaat, pengelolaan warta jemaat, jadwal ibadah mingguan, dan keterbukaan donasi.</p>
-                    </div>
-                </div>
-                <div class="col-md-4 mt-md-4">
-                    <div class="card service-card p-4 text-center">
-                        <div class="service-icon text-dark"><i class="fa-solid fa-database"></i></div>
-                        <h4>Sistem Informasi Kustom</h4>
-                        <p class="text-muted small">Pengembangan dashboard internal perusahaan, aplikasi inventory barang, koperasi, hingga sistem manajemen data.</p>
-                    </div>
-                </div>
-                <div class="col-md-4 mt-md-4">
-                    <div class="card service-card p-4 text-center bg-primary text-white">
-                        <div class="service-icon text-white"><i class="fa-solid fa-lightbulb"></i></div>
-                        <h4>Punya Ide Sistem Lain?</h4>
-                        <p class="small text-white-50">Diskusikan kebutuhan spesifik organisasi Anda secara gratis bersama tim analis sistem kami.</p>
-                        <a href="#kontak" class="btn btn-light btn-sm rounded-pill mt-2">Hubungi Sekarang</a>
-                    </div>
-                </div>
-            </div>
+      <div class="container my-4">
+        <div class="text-center">
+          <h2 class="section-title">Layanan Utama Kami</h2>
+          <p class="text-muted">
+            Kategori aplikasi berbasis web spesifik yang kami kembangkan untuk
+            kemudahan operasional Anda
+          </p>
         </div>
+
+        <div class="row mt-5 g-4">
+          <div class="col-md-4">
+            <div class="card service-card p-4 text-center">
+              <div class="service-icon">
+                <i class="fa-solid fa-graduation-cap"></i>
+              </div>
+              <h4 class="fw-bold">Sekolah & Pendidikan</h4>
+              <p class="text-muted small mb-0">
+                Sistem Informasi Sekolah, E-Learning, PPDB Online, dan Manajemen
+                Nilai Siswa yang transparan.
+              </p>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="card service-card p-4 text-center">
+              <div class="service-icon">
+                <i class="fa-solid fa-hospital"></i>
+              </div>
+              <h4 class="fw-bold">Rumah Sakit & Kesehatan</h4>
+              <p class="text-muted small mb-0">
+                Sistem Informasi Rumah Sakit (SIRS), sistem rekam medis digital
+                (EHR), dan modul pendaftaran pasien.
+              </p>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="card service-card p-4 text-center">
+              <div class="service-icon">
+                <i class="fa-solid fa-briefcase"></i>
+              </div>
+              <h4 class="fw-bold">Website Profil Bisnis</h4>
+              <p class="text-muted small mb-0">
+                Company profile interaktif untuk mengenalkan UMKM, perusahaan
+                logistik, atau portofolio usaha ke pasar digital.
+              </p>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="card service-card p-4 text-center">
+              <div class="service-icon"><i class="fa-solid fa-church"></i></div>
+              <h4 class="fw-bold">Gereja & Komunitas</h4>
+              <p class="text-muted small mb-0">
+                Website informasi jemaat, pengelolaan warta jemaat, jadwal
+                ibadah mingguan, dan keterbukaan donasi.
+              </p>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="card service-card p-4 text-center">
+              <div class="service-icon">
+                <i class="fa-solid fa-database"></i>
+              </div>
+              <h4 class="fw-bold">Sistem Informasi Kustom</h4>
+              <p class="text-muted small mb-0">
+                Pengembangan dashboard internal perusahaan, aplikasi inventory
+                barang, koperasi, hingga sistem manajemen data.
+              </p>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="card service-card cta-box p-4 text-center text-white">
+              <div class="service-icon text-white">
+                <i class="fa-solid fa-lightbulb"></i>
+              </div>
+              <h4 class="fw-bold">Punya Ide Sistem Lain?</h4>
+              <p class="small text-white-50 mb-3">
+                Diskusikan kebutuhan spesifik organisasi Anda secara gratis
+                bersama tim analis sistem kami.
+              </p>
+              <a
+                href="#kontak"
+                class="btn btn-light btn-sm rounded-pill fw-bold px-4"
+                >Hubungi Sekarang</a
+              >
+            </div>
+          </div>
+        </div>
+      </div>
     </section>
 
     <section id="portofolio" class="py-5">
-        <div class="container my-4">
-            <div class="text-center">
-                <h2 class="section-title">Portofolio & Studi Kasus</h2>
-                <p class="text-muted">Proyek aplikasi web yang menginspirasi produktivitas mitra kerja kami</p>
-            </div>
-
-            <div class="row mt-5">
-                <div class="col-md-4">
-                    <div class="card portfolio-item">
-                        <div class="portfolio-img"><i class="fa-solid fa-school"></i></div>
-                        <div class="card-body">
-                            <span class="badge bg-primary mb-2">Pendidikan</span>
-                            <h5 class="card-title fw-bold">E-School Portal Timika</h5>
-                            <p class="card-text text-muted small">Aplikasi manajemen sekolah terintegrasi dengan PPDB online dan sistem absensi digital siswa.</p>
-                            <a href="#" class="btn btn-sm btn-outline-primary">Lihat Detail Kasus</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="card portfolio-item">
-                        <div class="portfolio-img text-danger"><i class="fa-solid fa-heart-pulse"></i></div>
-                        <div class="card-body">
-                            <span class="badge bg-danger mb-2">Kesehatan</span>
-                            <h5 class="card-title fw-bold">Klinik Medika Utama Web App</h5>
-                            <p class="card-text text-muted small">Sistem rekam medis lokal untuk pengelolaan antrean dokter dan riwayat kesehatan pasien.</p>
-                            <a href="#" class="btn btn-sm btn-outline-primary">Lihat Detail Kasus</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="card portfolio-item">
-                        <div class="portfolio-img text-success"><i class="fa-solid fa-building"></i></div>
-                        <div class="card-body">
-                            <span class="badge bg-success mb-2">Company Profile</span>
-                            <h5 class="card-title fw-bold">Web Profil PT Papua Logistik</h5>
-                            <p class="card-text text-muted small">Website interaktif untuk perusahaan distribusi kargo dengan fitur pelacakan armada sederhana.</p>
-                            <a href="#" class="btn btn-sm btn-outline-primary">Lihat Detail Kasus</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
+      <div class="container my-4">
+        <div class="text-center">
+          <h2 class="section-title">Portofolio & Studi Kasus</h2>
+          <p class="text-muted">
+            Proyek aplikasi web yang menginspirasi produktivitas mitra kerja
+            kami
+          </p>
         </div>
+
+        <div class="row mt-5 g-4">
+          <div class="col-md-4">
+            <div class="card portfolio-item h-100">
+              <div class="portfolio-img">
+                <i class="fa-solid fa-school"></i>
+              </div>
+              <div class="card-body">
+                <span class="badge bg-danger mb-2">Pendidikan</span>
+                <h5 class="card-title fw-bold">E-School Portal Timika</h5>
+                <p class="card-text text-muted small">
+                  Aplikasi manajemen sekolah terintegrasi dengan PPDB online dan
+                  sistem absensi digital siswa.
+                </p>
+                <a
+                  href="#kontak"
+                  class="btn btn-sm btn-pagodev-outline w-100 mt-2"
+                  >Lihat Detail Kasus</a
+                >
+              </div>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="card portfolio-item h-100">
+              <div class="portfolio-img">
+                <i class="fa-solid fa-heart-pulse"></i>
+              </div>
+              <div class="card-body">
+                <span class="badge bg-danger mb-2">Kesehatan</span>
+                <h5 class="card-title fw-bold">Klinik Medika Utama Web App</h5>
+                <p class="card-text text-muted small">
+                  Sistem rekam medis lokal untuk pengelolaan antrean dokter dan
+                  riwayat kesehatan pasien.
+                </p>
+                <a
+                  href="#kontak"
+                  class="btn btn-sm btn-pagodev-outline w-100 mt-2"
+                  >Lihat Detail Kasus</a
+                >
+              </div>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="card portfolio-item h-100">
+              <div class="portfolio-img">
+                <i class="fa-solid fa-building"></i>
+              </div>
+              <div class="card-body">
+                <span class="badge bg-danger mb-2">Company Profile</span>
+                <h5 class="card-title fw-bold">Web Profil PT Papua Logistik</h5>
+                <p class="card-text text-muted small">
+                  Website interaktif untuk perusahaan distribusi kargo dengan
+                  fitur pelacakan armada sederhana.
+                </p>
+                <a
+                  href="#kontak"
+                  class="btn btn-sm btn-pagodev-outline w-100 mt-2"
+                  >Lihat Detail Kasus</a
+                >
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </section>
 
     <section id="kontak" class="py-5 bg-light">
-        <div class="container my-4">
-            <div class="text-center">
-                <h2 class="section-title">Mulai Proyek Anda Bersama Kami</h2>
-                <p class="text-muted">Konsultasikan kebutuhan aplikasi berbasis website Anda dan dapatkan penawaran terbaik</p>
-            </div>
-
-            <div class="row mt-5 justify-content-center">
-                <div class="col-md-5 mb-4">
-                    <div class="card p-4 border-0 shadow-sm h-100">
-                        <h4 class="fw-bold mb-4">Informasi Kontak</h4>
-                        <div class="d-flex mb-3">
-                            <i class="fa-solid fa-location-dot text-primary fs-4 me-3 mt-1"></i>
-                            <div>
-                                <h5>Lokasi Kantor</h5>
-                                <p class="text-muted small">Kota Timika, Mimika, Papua Tengah - Indonesia</p>
-                            </div>
-                        </div>
-                        <div class="d-flex mb-3">
-                            <i class="fa-solid fa-phone text-primary fs-4 me-3 mt-1"></i>
-                            <div>
-                                <h5>WhatsApp / Telepon</h5>
-                                <p class="text-muted small">+62 821-XXXX-XXXX</p>
-                            </div>
-                        </div>
-                        <div class="d-flex mb-3">
-                            <i class="fa-solid fa-envelope text-primary fs-4 me-3 mt-1"></i>
-                            <div>
-                                <h5>Email Resmi</h5>
-                                <p class="text-muted small">info@pagodev.com</p>
-                            </div>
-                        </div>
-                        <div class="d-flex">
-                            <i class="fa-brands fa-instagram text-primary fs-4 me-3 mt-1"></i>
-                            <div>
-                                <h5>Media Sosial</h5>
-                                <p class="text-muted small">@pagodev_timika</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="col-md-6">
-                    <div class="card p-4 border-0 shadow-sm">
-                        <h4 class="fw-bold mb-4">Kirim Pesan Langsung</h4>
-                        <form>
-                            <div class="mb-3">
-                                <label class="form-label text-muted small fw-bold">Nama Lengkap / Instansi</label>
-                                <input type="text" class="form-control" placeholder="Contoh: SMA Negeri 1 Timika" required>
-                            </div>
-                            <div class="mb-3">
-                                <label class="form-label text-muted small fw-bold">Nomor WhatsApp Actif</label>
-                                <input type="tel" class="form-control" placeholder="Contoh: 0821xxxxxxxx" required>
-                            </div>
-                            <div class="mb-3">
-                                <label class="form-label text-muted small fw-bold">Jenis Aplikasi Website</label>
-                                <select class="form-select">
-                                    <option>Sistem Informasi Sekolah</option>
-                                    <option>Sistem Informasi Rumah Sakit</option>
-                                    <option>Website Profil Perusahaan / Bisnis</option>
-                                    <option>Website Gereja & Komunitas</option>
-                                    <option>Sistem Informasi Kustom (Lainnya)</option>
-                                </select>
-                            </div>
-                            <div class="mb-3">
-                                <label class="form-label text-muted small fw-bold">Detail Kebutuhan Sistem</label>
-                                <textarea class="form-control" rows="4" placeholder="Jelaskan secara singkat alur sistem atau fitur utama yang Anda inginkan..." required></textarea>
-                            </div>
-                            <button type="submit" class="btn btn-primary w-100 py-2 fw-bold rounded-pill">Kirim Permintaan Quotation</button>
-                        </form>
-                    </div>
-                </div>
-            </div>
+      <div class="container my-4">
+        <div class="text-center">
+          <h2 class="section-title">Mulai Proyek Anda Bersama Kami</h2>
+          <p class="text-muted">
+            Konsultasikan kebutuhan aplikasi berbasis website Anda dan dapatkan
+            penawaran terbaik
+          </p>
         </div>
+
+        <div class="row mt-5 justify-content-center">
+          <div class="col-md-5 mb-4 mb-md-0">
+            <div class="card p-4 border-0 shadow-sm h-100">
+              <h4 class="fw-bold mb-4">Informasi Kontak</h4>
+              <div class="d-flex mb-3">
+                <i
+                  class="fa-solid fa-location-dot text-danger fs-4 me-3 mt-1"
+                ></i>
+                <div>
+                  <h6 class="fw-bold mb-1">Lokasi Kantor</h6>
+                  <p class="text-muted small mb-0">
+                    Kota Timika, Mimika, Papua Tengah - Indonesia
+                  </p>
+                </div>
+              </div>
+              <div class="d-flex mb-3">
+                <i class="fa-solid fa-phone text-danger fs-4 me-3 mt-1"></i>
+                <div>
+                  <h6 class="fw-bold mb-1">WhatsApp / Telepon</h6>
+                  <p class="text-muted small mb-0">+62 821-XXXX-XXXX</p>
+                </div>
+              </div>
+              <div class="d-flex mb-3">
+                <i class="fa-solid fa-envelope text-danger fs-4 me-3 mt-1"></i>
+                <div>
+                  <h6 class="fw-bold mb-1">Email Resmi</h6>
+                  <p class="text-muted small mb-0">info@pagodev.com</p>
+                </div>
+              </div>
+              <div class="d-flex">
+                <i
+                  class="fa-brands fa-instagram text-danger fs-4 me-3 mt-1"
+                ></i>
+                <div>
+                  <h6 class="fw-bold mb-1">Media Sosial</h6>
+                  <p class="text-muted small mb-0">@pagodev_timika</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-md-6">
+            <div class="card p-4 border-0 shadow-sm">
+              <h4 class="fw-bold mb-4">Kirim Pesan Langsung</h4>
+              <form>
+                <div class="mb-3">
+                  <label class="form-label text-muted small fw-bold"
+                    >Nama Lengkap / Instansi</label
+                  >
+                  <input
+                    type="text"
+                    class="form-control"
+                    placeholder="Contoh: SMA Negeri 1 Timika"
+                    required
+                  />
+                </div>
+                <div class="mb-3">
+                  <label class="form-label text-muted small fw-bold"
+                    >Nomor WhatsApp Aktif</label
+                  >
+                  <input
+                    type="tel"
+                    class="form-control"
+                    placeholder="Contoh: 0821xxxxxxxx"
+                    required
+                  />
+                </div>
+                <div class="mb-3">
+                  <label class="form-label text-muted small fw-bold"
+                    >Jenis Aplikasi Website</label
+                  >
+                  <select class="form-select">
+                    <option>Sistem Informasi Sekolah</option>
+                    <option>Sistem Informasi Rumah Sakit</option>
+                    <option>Website Profil Perusahaan / Bisnis</option>
+                    <option>Website Gereja & Komunitas</option>
+                    <option>Sistem Informasi Kustom (Lainnya)</option>
+                  </select>
+                </div>
+                <div class="mb-3">
+                  <label class="form-label text-muted small fw-bold"
+                    >Detail Kebutuhan Sistem</label
+                  >
+                  <textarea
+                    class="form-control"
+                    rows="4"
+                    placeholder="Jelaskan secara singkat alur sistem atau fitur utama yang Anda inginkan..."
+                    required
+                  ></textarea>
+                </div>
+                <button type="submit" class="btn btn-pagodev-red w-100 py-2">
+                  Kirim Permintaan Quotation
+                </button>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
     </section>
 
     <footer class="footer text-center">
-        <div class="container">
-            <p class="mb-2 fw-bold text-white">PAGODEV - Timika</p>
-            <p class="mb-0 small">&copy; 2026 Pagodev. Hak Cipta Dilindungi. Solusi Transformasi Digital Papua Tengah.</p>
-        </div>
+      <div class="container">
+        <p class="mb-2 fw-bold text-white fs-5">PAGODEV - Timika</p>
+        <p class="mb-0 small">
+          &copy; 2026 Pagodev. Hak Cipta Dilindungi. Solusi Transformasi Digital
+          Papua Tengah.
+        </p>
+      </div>
     </footer>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-</body>
+  </body>
 </html>

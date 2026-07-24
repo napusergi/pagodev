@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Pagodev - Modern Software House & IT Solutions Timika</title>
     
-    <link rel="icon" type="image/png" href="foto/pagodev-icon-true.png">
+    <link rel="icon" type="image/png" href="../foto/pagodev-icon-true.png">
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -13,16 +13,13 @@
     
     <style>
         :root {
-            /* KOMBINASI WARNA SIMULASI: Merah, Kuning, Hijau, Hitam */
-            --sim-red: #D90429;        /* Merah Utama */
-            --sim-red-dark: #A0031E;   /* Merah Gelap Hover */
-            --sim-yellow: #FFC107;     /* Kuning Aksen/Highlight */
-            --sim-yellow-dark: #E0A800; /* Kuning Gelap Hover */
-            --sim-green: #198754;      /* Hijau Aksen/Ikon */
-            --sim-green-dark: #146C43;  /* Hijau Gelap Hover */
-            --sim-black: #111111;      /* Hitam Dominan */
-            --sim-black-light: #1A1D20;/* Hitam Slate Teks/Latar */
-            --sim-light: #F4F6F8;      /* Latar Abu-abu Tipis */
+            --sim-red: #D90429;
+            --sim-red-dark: #A0031E;
+            --sim-yellow: #FFC107;
+            --sim-green: #198754;
+            --sim-black: #111111;
+            --sim-black-light: #1A1D20;
+            --sim-light: #F4F6F8;
         }
 
         body {
@@ -32,7 +29,6 @@
             scroll-behavior: smooth;
         }
 
-        /* Navbar Header */
         .navbar {
             background-color: var(--sim-black) !important;
             border-bottom: 3px solid var(--sim-yellow);
@@ -53,7 +49,6 @@
             color: var(--sim-yellow) !important;
         }
 
-        /* Hero Section */
         .hero-section {
             padding: 90px 0 70px;
             background: linear-gradient(180deg, #ffffff 0%, var(--sim-light) 100%);
@@ -74,7 +69,6 @@
             filter: drop-shadow(0px 10px 20px rgba(217, 4, 41, 0.2));
         }
         
-        /* Buttons Custom */
         .btn-pagodev-red {
             background-color: var(--sim-red);
             color: #ffffff;
@@ -89,7 +83,6 @@
             background-color: var(--sim-red-dark);
             color: #ffffff;
             transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(217, 4, 41, 0.4);
         }
         .btn-pagodev-outline {
             border: 2px solid var(--sim-green);
@@ -105,7 +98,6 @@
             color: #ffffff;
         }
 
-        /* Judul Bagian / Section Title */
         .section-title {
             font-weight: 800;
             color: var(--sim-black);
@@ -123,7 +115,6 @@
             border-radius: 2px;
         }
 
-        /* Card Layanan & Fitur */
         .service-card {
             border: 1px solid #e9ecef;
             border-radius: 12px;
@@ -147,7 +138,6 @@
             margin-bottom: 15px;
         }
 
-        /* Tech Stack Badge */
         .tech-badge {
             background-color: var(--sim-light);
             border: 1px solid #dee2e6;
@@ -160,7 +150,6 @@
             font-size: 0.85rem;
         }
 
-        /* Card Portofolio */
         .portfolio-item {
             border: 1px solid #e9ecef;
             border-radius: 12px;
@@ -184,12 +173,6 @@
             font-size: 3.5rem;
         }
 
-        /* Ikon Fitur Tentang */
-        .feature-icon {
-            color: var(--sim-green);
-        }
-
-        /* Accordion Style untuk FAQ */
         .accordion-item {
             border: 1px solid #e9ecef;
             border-radius: 8px !important;
@@ -197,7 +180,7 @@
             overflow: hidden;
         }
         .accordion-button:not(.collapsed) {
-            background-color: #fff3cd; /* Warna kuning soft saat terbuka */
+            background-color: #fff3cd;
             color: var(--sim-black);
             font-weight: 700;
             box-shadow: none;
@@ -207,11 +190,7 @@
             font-weight: 700;
             color: var(--sim-black);
         }
-        .accordion-button:focus {
-            box-shadow: none;
-        }
 
-        /* Footer */
         .footer {
             background-color: var(--sim-black);
             color: #d1d5db;
@@ -230,7 +209,7 @@
     <nav class="navbar navbar-expand-lg sticky-top">
         <div class="container">
             <a class="navbar-brand" href="#">
-                <img src="foto/pagodev-transparent-white.png" alt="Pagodev Software House Logo">
+                <img src="../foto/pagodev-transparent-white.png" alt="Pagodev Software House Logo">
             </a>
             <button class="navbar-toggler bg-light" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
                 <span class="navbar-toggler-icon"></span>
@@ -262,7 +241,7 @@
                     </div>
                 </div>
                 <div class="col-lg-4 text-center">
-                    <img src="foto/pagodev-icon-true.png" alt="Pagodev Software House Icon" class="img-fluid hero-icon-img">
+                    <img src="../foto/pagodev-icon-true.png" alt="Pagodev Software House Icon" class="img-fluid hero-icon-img">
                 </div>
             </div>
         </div>
@@ -279,22 +258,22 @@
                 </div>
                 <div class="col-md-6">
                     <h3 class="fw-bold">Software Development Partner Terpercaya dari Timika</h3>
-                    <p class="text-muted mt-3">Sebagai Software House profesional, kami menerapkan standar pengembangan *Agile Methodology*, memastikan kode yang bersih (*Clean Code*), sistem aman, serta performa aplikasi yang andal untuk jangka panjang.</p>
+                    <p class="text-muted mt-3">Sebagai Software House profesional, kami menerapkan standar pengembangan <em>Agile Methodology</em>, memastikan kode yang bersih (<em>Clean Code</em>), sistem aman, serta performa aplikasi yang andal untuk jangka panjang.</p>
                     <div class="row mt-4">
                         <div class="col-6 mb-3">
-                            <h6 class="fw-bold"><i class="fa-solid fa-laptop-code feature-icon me-2"></i> Custom Software</h6>
+                            <h6 class="fw-bold"><i class="fa-solid fa-laptop-code text-success me-2"></i> Custom Software</h6>
                             <p class="text-muted small">Dibuat khusus dari nol sesuai workflow bisnis Anda.</p>
                         </div>
                         <div class="col-6 mb-3">
-                            <h6 class="fw-bold"><i class="fa-solid fa-shield-halved feature-icon me-2"></i> Keamanan Sistem</h6>
+                            <h6 class="fw-bold"><i class="fa-solid fa-shield-halved text-success me-2"></i> Keamanan Sistem</h6>
                             <p class="text-muted small">Perlindungan data dan enkripsi standar industri.</p>
                         </div>
                         <div class="col-6">
-                            <h6 class="fw-bold"><i class="fa-solid fa-layer-group feature-icon me-2"></i> Scalable Architecture</h6>
+                            <h6 class="fw-bold"><i class="fa-solid fa-layer-group text-success me-2"></i> Scalable Architecture</h6>
                             <p class="text-muted small">Sistem siap berkembang seiring bertumbuhnya pengguna.</p>
                         </div>
                         <div class="col-6">
-                            <h6 class="fw-bold"><i class="fa-solid fa-headset feature-icon me-2"></i> Maintenance & Support</h6>
+                            <h6 class="fw-bold"><i class="fa-solid fa-headset text-success me-2"></i> Maintenance & Support</h6>
                             <p class="text-muted small">Dukungan teknis berkala dan garansi pasca-launching.</p>
                         </div>
                     </div>
@@ -363,7 +342,7 @@
             <h2 class="section-title">Tech Stack & Teknologi</h2>
             <p class="text-muted mb-4">Bahasa pemograman, framework, dan tools yang kami gunakan dalam pengembangan sistem</p>
             
-            <div class="d-flex flex-wrap justify-content-center max-w-lg mx-auto">
+            <div class="d-flex flex-wrap justify-content-center">
                 <span class="tech-badge"><i class="fa-brands fa-html5 text-danger me-1"></i> HTML5/CSS3</span>
                 <span class="tech-badge"><i class="fa-brands fa-bootstrap text-primary me-1"></i> Bootstrap 5</span>
                 <span class="tech-badge"><i class="fa-brands fa-js text-warning me-1"></i> JavaScript (ES6+)</span>
@@ -432,73 +411,43 @@
 
             <div class="row justify-content-center">
                 <div class="col-lg-9">
-                    <div class="accordion" id="faqAccordion">
-                        
+                    <div class="accordion" id="faqAccordionSim">
                         <div class="accordion-item">
-                            <h2 class="accordion-header" id="faqHeadingOne">
-                                <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#faqCollapseOne" aria-expanded="true" aria-controls="faqCollapseOne">
+                            <h2 class="accordion-header" id="faqHeadingOneS">
+                                <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#faqCollapseOneS">
                                     <i class="fa-solid fa-circle-question text-danger me-2"></i> Berapa lama estimasi pengerjaan satu proyek aplikasi?
                                 </button>
                             </h2>
-                            <div id="faqCollapseOne" class="accordion-collapse collapse show" aria-labelledby="faqHeadingOne" data-bs-parent="#faqAccordion">
+                            <div id="faqCollapseOneS" class="accordion-collapse collapse show" data-bs-parent="#faqAccordionSim">
                                 <div class="accordion-body text-muted">
-                                    Waktu pengerjaan bervariasi tergantung kompleksitas sistem. Untuk aplikasi skala kecil/landing page berkisar antara 1-2 minggu. Sementara untuk aplikasi kompleks (Enterprise Web System / Mobile Apps) membutuhkan waktu sekitar 1 hingga 3 bulan, disepakati bersama dalam timeline proyek.
+                                    Waktu pengerjaan bervariasi tergantung kompleksitas sistem. Untuk aplikasi skala kecil berkisar 1-2 minggu, sedangkan sistem enterprise berkisar 1-3 bulan.
                                 </div>
                             </div>
                         </div>
-
                         <div class="accordion-item">
-                            <h2 class="accordion-header" id="faqHeadingTwo">
-                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faqCollapseTwo" aria-expanded="false" aria-controls="faqCollapseTwo">
-                                    <i class="fa-solid fa-circle-question text-danger me-2"></i> Bagaimana skema alur pengembangan (development flow) di Pagodev?
+                            <h2 class="accordion-header" id="faqHeadingTwoS">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faqCollapseTwoS">
+                                    <i class="fa-solid fa-circle-question text-danger me-2"></i> Apakah klien mendapatkan kode sumber (Source Code)?
                                 </button>
                             </h2>
-                            <div id="faqCollapseTwo" class="accordion-collapse collapse" aria-labelledby="faqHeadingTwo" data-bs-parent="#faqAccordion">
+                            <div id="faqCollapseTwoS" class="accordion-collapse collapse" data-bs-parent="#faqAccordionSim">
                                 <div class="accordion-body text-muted">
-                                    Proses pengembangan kami melalui 5 tahapan utama: <strong>1) Konsultasi & Brief Kebutuhan</strong>, <strong>2) Desain UI/UX & Prototyping</strong>, <strong>3) Phase Coding & Slicing</strong>, <strong>4) Testing & Quality Assurance (QA)</strong>, serta <strong>5) Deployment & Maintenance</strong>.
+                                    Ya, untuk setiap proyek custom software development, hak milik penuh atas Source Code akan diserahkan setelah serah terima proyek.
                                 </div>
                             </div>
                         </div>
-
                         <div class="accordion-item">
-                            <h2 class="accordion-header" id="faqHeadingThree">
-                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faqCollapseThree" aria-expanded="false" aria-controls="faqCollapseThree">
-                                    <i class="fa-solid fa-circle-question text-danger me-2"></i> Apakah klien mendapatkan kode sumber (Source Code) aplikasi?
+                            <h2 class="accordion-header" id="faqHeadingThreeS">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faqCollapseThreeS">
+                                    <i class="fa-solid fa-circle-question text-danger me-2"></i> Apakah ada garansi dan pemeliharaan (maintenance)?
                                 </button>
                             </h2>
-                            <div id="faqCollapseThree" class="accordion-collapse collapse" aria-labelledby="faqHeadingThree" data-bs-parent="#faqAccordion">
+                            <div id="faqCollapseThreeS" class="accordion-collapse collapse" data-bs-parent="#faqAccordionSim">
                                 <div class="accordion-body text-muted">
-                                    Ya, untuk setiap proyek custom software development, hak milik penuh atas Source Code serta akses database akan diserahkan penuh kepada klien setelah seluruh proses pelunasan dan serah terima proyek selesai.
+                                    Kami memberikan garansi bebas bug (Bug-Fix Guarantee) serta pemeliharaan teknis gratis selama 3-6 bulan pertama pasca peluncuran.
                                 </div>
                             </div>
                         </div>
-
-                        <div class="accordion-item">
-                            <h2 class="accordion-header" id="faqHeadingFour">
-                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faqCollapseFour" aria-expanded="false" aria-controls="faqCollapseFour">
-                                    <i class="fa-solid fa-circle-question text-danger me-2"></i> Apakah ada garansi dan pemeliharaan (maintenance) setelah proyek rilis?
-                                </button>
-                            </h2>
-                            <div id="faqCollapseFour" class="accordion-collapse collapse" aria-labelledby="faqHeadingFour" data-bs-parent="#faqAccordion">
-                                <div class="accordion-body text-muted">
-                                    Tentu saja. Kami memberikan garansi bebas bug/error (Bug-Fix Guarantee) serta pemeliharaan teknis gratis selama 3-6 bulan pertama pasca peluncuran aplikasi. Kami juga menyediakan paket Service Level Agreement (SLA) untuk dukungan maintenance jangka panjang.
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="accordion-item">
-                            <h2 class="accordion-header" id="faqHeadingFive">
-                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faqCollapseFive" aria-expanded="false" aria-controls="faqCollapseFive">
-                                    <i class="fa-solid fa-circle-question text-danger me-2"></i> Bagaimana jika lokasi klien berada di luar Timika / Papua?
-                                </button>
-                            </h2>
-                            <div id="faqCollapseFive" class="accordion-collapse collapse" aria-labelledby="faqHeadingFive" data-bs-parent="#faqAccordion">
-                                <div class="accordion-body text-muted">
-                                    Kami melayani klien dari seluruh Indonesia. Proses diskusi, koordinasi harian, hingga demonstrasi sistem dapat dilakukan secara efektif melalui Google Meet, Zoom, dan grup koordinasi khusus WhatsApp/Slack.
-                                </div>
-                            </div>
-                        </div>
-
                     </div>
                 </div>
             </div>
@@ -509,7 +458,7 @@
         <div class="container my-4">
             <div class="text-center">
                 <h2 class="section-title">Konsultasi Project Anda</h2>
-                <p class="text-muted">Sampaikan kebutuhan proyek software Anda dan dapatkan estimasi estimasi waktu serta perkiraan biaya</p>
+                <p class="text-muted">Sampaikan kebutuhan proyek software Anda dan dapatkan estimasi biaya serta waktu pengerjaan</p>
             </div>
 
             <div class="row mt-5 justify-content-center">
@@ -537,13 +486,6 @@
                                 <p class="text-muted small mb-0">dev@pagodev.com</p>
                             </div>
                         </div>
-                        <div class="d-flex">
-                            <i class="fa-brands fa-github text-dark fs-4 me-3 mt-1"></i>
-                            <div>
-                                <h6 class="fw-bold mb-1">Official Repository</h6>
-                                <p class="text-muted small mb-0">github.com/pagodev-timika</p>
-                            </div>
-                        </div>
                     </div>
                 </div>
                 
@@ -565,13 +507,12 @@
                                     <option>Web Application (SaaS / ERP / CRM)</option>
                                     <option>Mobile App Development (Android / iOS)</option>
                                     <option>UI/UX Design & Prototyping</option>
-                                    <option>API Integration & Infrastructure</option>
                                     <option>Custom Software Development</option>
                                 </select>
                             </div>
                             <div class="mb-3">
                                 <label class="form-label text-muted small fw-bold">Gambaran Singkat Project</label>
-                                <textarea class="form-control" rows="4" placeholder="Tuliskan gambaran fitur utama, estimasi waktu, atau kebutuhan khusus lainnya..." required></textarea>
+                                <textarea class="form-control" rows="4" placeholder="Tuliskan gambaran fitur utama..." required></textarea>
                             </div>
                             <button type="submit" class="btn btn-pagodev-red w-100 py-2">Kirim Request Quotation</button>
                         </form>
@@ -583,8 +524,8 @@
 
     <footer class="footer text-center">
         <div class="container">
-            <img src="foto/pagodev-transparent-white.png" alt="Pagodev Footer Logo" class="footer-logo mb-3">
-            <p class="mb-0 small text-secondary">&copy; 2026 Pagodev Software House. All Rights Reserved. Empowering Digital Transformation in Papua.</p>
+            <img src="../foto/pagodev-transparent-white.png" alt="Pagodev Footer Logo" class="footer-logo mb-3">
+            <p class="mb-0 small text-secondary">&copy; 2026 Pagodev Software House. All Rights Reserved.</p>
         </div>
     </footer>
 

@@ -819,11 +819,13 @@
       </div>
     </div>
     <script>
+      // Hosting utama memblokir file video (403), jadi video diputar dari GitHub Pages
+      const VIDEO_BASE = location.hostname.endsWith("github.io") ? "" : "https://napusergi.github.io/pagodev/";
       const vm = document.getElementById("videoModal");
       vm.addEventListener("show.bs.modal", (e) => {
         const v = document.getElementById("videoFrame");
         document.getElementById("videoTitle").innerHTML = e.relatedTarget.dataset.title || "Video Demo";
-        v.src = e.relatedTarget.dataset.video;
+        v.src = VIDEO_BASE + e.relatedTarget.dataset.video;
         v.play().catch(() => {});
       });
       vm.addEventListener("hidden.bs.modal", () => {

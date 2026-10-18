@@ -530,11 +530,10 @@
                   Platform akademik terpadu untuk pembelajaran online, absensi
                   RFID, dan administrasi siswa.
                 </p>
-                <a
-                  href="#kontak"
-                  class="btn btn-sm btn-outline-primary w-100 mt-2"
-                  >Detail Sistem</a
-                >
+                <div class="d-flex gap-2 mt-2">
+                  <a href="demo/siswa/" target="_blank" class="btn btn-sm btn-primary flex-fill"><i class="fa-solid fa-play me-1"></i> Coba Demo</a>
+                  <button type="button" class="btn btn-sm btn-outline-primary flex-fill" data-bs-toggle="modal" data-bs-target="#videoModal" data-video="video/demo-sistem-informasi-siswa.webm"><i class="fa-solid fa-video me-1"></i> Video</button>
+                </div>
               </div>
             </div>
           </div>
@@ -753,5 +752,31 @@
     </footer>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  
+    <div class="modal fade" id="videoModal" tabindex="-1">
+      <div class="modal-dialog modal-lg modal-dialog-centered">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">Video Demo - Sistem Informasi Siswa</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+          </div>
+          <div class="modal-body p-0">
+            <video id="videoFrame" class="w-100" controls playsinline></video>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script>
+      const vm = document.getElementById("videoModal");
+      vm.addEventListener("show.bs.modal", (e) => {
+        const v = document.getElementById("videoFrame");
+        v.src = e.relatedTarget.dataset.video;
+        v.play().catch(() => {});
+      });
+      vm.addEventListener("hidden.bs.modal", () => {
+        const v = document.getElementById("videoFrame");
+        v.pause(); v.removeAttribute("src"); v.load();
+      });
+    </script>
   </body>
 </html>

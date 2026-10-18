@@ -1,0 +1,9 @@
+# Dokumen internal & file kerja - jangan dipublikasikan
+*.docx
+*.pdf
+*.txt
+cadangan/
+portfolio-update/
+*.py
+.DS_Store
+Thumbs.db

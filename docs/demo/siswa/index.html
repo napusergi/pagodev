@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Demo Sistem Informasi Siswa - Pagodev</title>
+<title>Demo Smart Campus & LMS Portal - Pagodev</title>
 <link rel="icon" type="image/png" href="../../foto/pagodev-icon-true.png" />
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
@@ -62,8 +62,8 @@
   <div class="card login-card shadow-lg p-4">
     <div class="text-center mb-3">
       <div class="display-5 text-primary"><i class="fa-solid fa-graduation-cap"></i></div>
-      <h4 class="fw-bold mb-0">SIS Demo</h4>
-      <small class="text-muted">Sistem Informasi Siswa &bull; SMA Harapan Bangsa</small>
+      <h4 class="fw-bold mb-0">Smart Campus Demo</h4>
+      <small class="text-muted">Sistem Informasi Siswa, LMS &amp; Absensi RFID &bull; SMA Harapan Bangsa</small>
     </div>
     <form id="loginForm">
       <div class="mb-3"><label class="form-label small fw-semibold">Username</label>
@@ -80,12 +80,14 @@
 <!-- APP -->
 <div id="app" class="app-wrap d-none">
   <aside class="sidebar no-print" id="sidebar">
-    <div class="brand"><i class="fa-solid fa-graduation-cap text-info me-1"></i> SIS Demo<small>SMA Harapan Bangsa</small></div>
+    <div class="brand"><i class="fa-solid fa-graduation-cap text-info me-1"></i> Smart Campus<small>SMA Harapan Bangsa</small></div>
     <a class="nav-item" data-r="dashboard"><i class="fa-solid fa-gauge-high fa-fw"></i> Dashboard</a>
     <a class="nav-item" data-r="siswa"><i class="fa-solid fa-users fa-fw"></i> Data Siswa</a>
     <a class="nav-item" data-r="nilai"><i class="fa-solid fa-pen-to-square fa-fw"></i> Input Nilai</a>
     <a class="nav-item" data-r="absensi"><i class="fa-solid fa-clipboard-user fa-fw"></i> Absensi</a>
     <a class="nav-item" data-r="laporan"><i class="fa-solid fa-file-lines fa-fw"></i> Rapor / Laporan</a>
+    <a class="nav-item" data-r="lms"><i class="fa-solid fa-book-open-reader fa-fw"></i> LMS: Materi &amp; Tugas</a>
+    <a class="nav-item" data-r="rfid"><i class="fa-solid fa-id-card-clip fa-fw"></i> Absensi RFID</a>
     <hr class="border-secondary" />
     <a class="nav-item" id="btnReset"><i class="fa-solid fa-rotate-left fa-fw"></i> Reset Data Demo</a>
     <a class="nav-item" id="btnLogout"><i class="fa-solid fa-right-from-bracket fa-fw"></i> Keluar</a>
@@ -123,7 +125,7 @@
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 <script>
-const KEY = "pagodev_siswa_demo_v1";
+const KEY = "pagodev_siswa_demo_v2";
 const KELAS = ["X-A","X-B","XI-IPA","XI-IPS","XII-IPA","XII-IPS"];
 const MAPEL = ["Matematika","B. Indonesia","B. Inggris","IPA","IPS"];
 const $ = (s, r=document) => r.querySelector(s);
@@ -149,9 +151,15 @@ function seed(){
       status: r() < .93 ? "Aktif" : "Cuti" });
     nilai[nis] = {}; MAPEL.forEach(m => nilai[nis][m] = 60 + Math.floor(r()*38));
   }
-  return { siswa, nilai, absensi: {} };
+  const materi = [], tugas = [], mp = MAPEL, tp = ["pdf","video","slide"];
+  const jm = { "Matematika":["Persamaan Linear","Fungsi Kuadrat","Statistika Dasar"], "B. Indonesia":["Teks Eksposisi","Puisi Modern","Surat Resmi"], "B. Inggris":["Simple Past Tense","Descriptive Text","Narrative Text"], "IPA":["Sel dan Jaringan","Hukum Newton","Ekosistem"], "IPS":["Kegiatan Ekonomi","Interaksi Sosial","Sejarah Nasional"] };
+  KELAS.forEach(k => { mp.forEach(m => { if (r() < .6) materi.push({ id:"m"+materi.length, kelas:k, mapel:m, judul:jm[m][Math.floor(r()*3)], tipe:tp[Math.floor(r()*3)], tgl:"2026-10-" + String(1+Math.floor(r()*14)).padStart(2,"0") }); }); });
+  KELAS.forEach(k => { const ids = siswa.filter(s => s.kelas === k).map(s => s.id); [0,1].forEach(j => { const m = mp[Math.floor(r()*5)];
+    tugas.push({ id:"t"+tugas.length, kelas:k, mapel:m, judul:"Tugas " + jm[m][j], deadline:"2026-10-" + String(20+j*5).padStart(2,"0"), kumpul: ids.filter(() => r() < (j ? .35 : .75)) }); }); });
+  return { siswa, nilai, absensi: {}, materi, tugas, rfid: {} };
 }
 function ensureToday(db){
+  db.materi ||= []; db.tugas ||= []; db.rfid ||= {};
   const k = todayKey();
   if (!db.absensi[k]) {
     const r = rng(7), a = {};
@@ -182,12 +190,12 @@ $("#hamb").onclick = () => $("#sidebar").classList.toggle("open");
 
 /* ---------- Router ---------- */
 let route = "dashboard";
-const TITLES = { dashboard:"Dashboard", siswa:"Data Siswa", nilai:"Input Nilai", absensi:"Absensi Harian", laporan:"Rapor / Laporan" };
+const TITLES = { dashboard:"Dashboard", siswa:"Data Siswa", nilai:"Input Nilai", absensi:"Absensi Harian", laporan:"Rapor / Laporan", lms:"LMS: Materi & Tugas", rfid:"Absensi Kartu RFID" };
 function go(r){
   route = r; $("#pageTitle").textContent = TITLES[r];
   document.querySelectorAll(".nav-item[data-r]").forEach(a => a.classList.toggle("active", a.dataset.r === r));
   $("#sidebar").classList.remove("open");
-  ({dashboard, siswa, nilai, absensi, laporan})[r]();
+  ({dashboard, siswa, nilai, absensi, laporan, lms, rfid})[r]();
   window.scrollTo(0,0);
 }
 document.querySelectorAll(".nav-item[data-r]").forEach(a => a.onclick = () => go(a.dataset.r));
@@ -358,6 +366,63 @@ function rapor(){
     <tr class="fw-bold table-light"><td colspan="2" class="text-end">Rata-rata</td><td class="text-center">${ra.toFixed(1)}</td><td class="text-center">${predikat(ra)}</td></tr></tbody></table>
     <div class="small mb-4"><b>Kehadiran tercatat:</b> Hadir ${cat.H} &bull; Sakit ${cat.S} &bull; Izin ${cat.I} &bull; Alpa ${cat.A}</div>
     <div class="row text-center small"><div class="col-6">Orang Tua / Wali<br><br><br><br>( ................. )</div><div class="col-6">Wali Kelas<br><br><br><br>( ................. )</div></div></div>`;
+}
+
+
+/* ---------- LMS ---------- */
+let lk = KELAS[0];
+const TIPE = { pdf:["fa-file-pdf","text-danger","Dokumen PDF"], video:["fa-circle-play","text-primary","Video"], slide:["fa-file-powerpoint","text-warning","Slide"] };
+function lms(){
+  const ms = db.materi.filter(m => m.kelas === lk), ts = db.tugas.filter(t => t.kelas === lk), n = db.siswa.filter(s => s.kelas === lk).length;
+  view(`<div class="d-flex align-items-center gap-2 mb-3"><label class="fw-semibold small">Kelas:</label><select id="lk" class="form-select" style="max-width:170px">${kelasOpts(lk)}</select>
+    <span class="small text-muted ms-2"><i class="fa-solid fa-circle-info"></i> Guru mengunggah materi &amp; tugas, siswa mengumpulkan secara online.</span></div>
+  <div class="row g-3"><div class="col-lg-6"><div class="card p-3"><h6 class="fw-bold mb-3"><i class="fa-solid fa-book-open text-primary me-1"></i> Materi Pembelajaran (${ms.length})</h6>
+    ${ms.map(m => { const t = TIPE[m.tipe]; return `<div class="d-flex align-items-center gap-3 py-2 border-bottom"><i class="fa-solid ${t[0]} ${t[1]} fs-4"></i><div class="flex-grow-1"><div class="fw-semibold">${esc(m.judul)}</div><div class="small text-muted">${esc(m.mapel)} &bull; ${t[2]} &bull; ${m.tgl}</div></div><button class="btn btn-sm btn-outline-danger" onclick="delMateri('${m.id}')"><i class="fa-solid fa-trash"></i></button></div>`; }).join("") || '<div class="text-muted small py-2">Belum ada materi.</div>'}
+    <form id="fM" class="row g-2 mt-2"><div class="col-12"><input id="mJ" class="form-control form-control-sm" placeholder="Judul materi baru" required></div>
+      <div class="col-5"><select id="mM" class="form-select form-select-sm">${MAPEL.map(m=>`<option>${m}</option>`).join("")}</select></div><div class="col-4"><select id="mT" class="form-select form-select-sm"><option value="pdf">PDF</option><option value="video">Video</option><option value="slide">Slide</option></select></div>
+      <div class="col-3"><button class="btn btn-sm btn-pago w-100">Unggah</button></div></form></div></div>
+  <div class="col-lg-6"><div class="card p-3"><h6 class="fw-bold mb-3"><i class="fa-solid fa-list-check text-primary me-1"></i> Tugas (${ts.length})</h6>
+    ${ts.map(t => { const pct = n ? Math.round(t.kumpul.filter(id => db.siswa.some(s => s.id===id && s.kelas===lk)).length / n * 100) : 0;
+      return `<div class="py-2 border-bottom"><div class="d-flex justify-content-between"><div class="fw-semibold">${esc(t.judul)}</div><span class="badge text-bg-light border">${esc(t.mapel)}</span></div>
+      <div class="small text-muted mb-1">Tenggat: ${t.deadline} &bull; Terkumpul ${t.kumpul.length} dari ${n} siswa</div>
+      <div class="d-flex align-items-center gap-2"><div class="progress flex-grow-1" style="height:10px"><div class="progress-bar ${pct>=70?"bg-success":"bg-warning"}" style="width:${pct}%"></div></div><b class="small">${pct}%</b>
+      <button class="btn btn-sm btn-outline-primary" onclick="kumpul('${t.id}')"><i class="fa-solid fa-paper-plane me-1"></i>Simulasi kumpul</button></div></div>`; }).join("") || '<div class="text-muted small py-2">Belum ada tugas.</div>'}
+    <form id="fT" class="row g-2 mt-2"><div class="col-12"><input id="tJ" class="form-control form-control-sm" placeholder="Judul tugas baru" required></div>
+      <div class="col-5"><select id="tM" class="form-select form-select-sm">${MAPEL.map(m=>`<option>${m}</option>`).join("")}</select></div><div class="col-4"><input id="tD" type="date" class="form-control form-control-sm" required></div>
+      <div class="col-3"><button class="btn btn-sm btn-pago w-100">Buat</button></div></form></div></div></div>`);
+  $("#lk").onchange = e => { lk = e.target.value; lms(); };
+  $("#fM").addEventListener("submit", e => { e.preventDefault(); db.materi.push({ id:"m"+Date.now(), kelas:lk, mapel:$("#mM").value, judul:$("#mJ").value.trim(), tipe:$("#mT").value, tgl:todayKey() }); save(); toast("Materi diunggah"); lms(); });
+  $("#fT").addEventListener("submit", e => { e.preventDefault(); db.tugas.push({ id:"t"+Date.now(), kelas:lk, mapel:$("#tM").value, judul:$("#tJ").value.trim(), deadline:$("#tD").value, kumpul:[] }); save(); toast("Tugas dibuat untuk kelas " + lk); lms(); });
+}
+function delMateri(id){ db.materi = db.materi.filter(m => m.id !== id); save(); lms(); toast("Materi dihapus"); }
+function kumpul(id){ const t = db.tugas.find(x => x.id === id), belum = db.siswa.filter(s => s.kelas === t.kelas && !t.kumpul.includes(s.id));
+  if (!belum.length) return toast("Semua siswa sudah mengumpulkan", "info"); const s = belum[Math.floor(Math.random()*belum.length)]; t.kumpul.push(s.id); save(); lms(); toast(s.nama + " mengumpulkan tugas"); }
+
+/* ---------- RFID ---------- */
+let lastTap = null;
+function rfid(){
+  const log = (db.rfid[todayKey()] ||= []);
+  view(`<div class="row g-3"><div class="col-lg-5"><div class="card p-4 text-center">
+    <div id="scanBox" class="rounded-4 p-4 mb-3" style="background:linear-gradient(135deg,#0f172a,#1e293b);color:#fff;min-height:210px;display:flex;flex-direction:column;align-items:center;justify-content:center">
+      ${lastTap ? `<i class="fa-solid fa-circle-check text-success" style="font-size:3rem"></i><div class="fs-4 fw-bold mt-2">${esc(lastTap.nama)}</div><div class="text-info">${lastTap.kelas} &bull; NIS ${lastTap.nis}</div><div class="mt-1 badge ${lastTap.status==="Hadir"?"bg-success":"bg-warning text-dark"} fs-6">${lastTap.status} - ${lastTap.jam}</div>`
+        : `<i class="fa-solid fa-wifi" style="font-size:3rem;transform:rotate(90deg)"></i><div class="fs-5 mt-2">Tempelkan kartu pada reader...</div>`}
+    </div>
+    <button class="btn btn-pago btn-lg w-100 mb-2" id="tapBtn"><i class="fa-solid fa-id-card-clip me-2"></i> Simulasi Tap Kartu</button>
+    <div class="input-group"><input id="nisIn" class="form-control" placeholder="atau ketik NIS, mis. 20250003"><button class="btn btn-outline-primary" id="nisBtn">Tap</button></div>
+    <div class="small text-muted mt-3">Di sistem asli, reader RFID memicu langsung tanpa tombol dan jam diambil dari waktu nyata. Siswa yang masuk lewat 07:30 tercatat <b>Terlambat</b>. Absensi harian otomatis terisi.</div></div></div>
+  <div class="col-lg-7"><div class="card p-3"><div class="d-flex justify-content-between align-items-center mb-3"><h6 class="fw-bold mb-0">Log Kehadiran Hari Ini</h6><span class="badge bg-primary">${log.length} tap</span></div>
+    <div class="table-responsive" style="max-height:430px;overflow:auto"><table class="table align-middle mb-0"><thead><tr><th>Jam</th><th>Nama</th><th>Kelas</th><th>Status</th></tr></thead><tbody>
+    ${[...log].reverse().map(x => `<tr><td>${x.jam}</td><td class="fw-semibold">${esc(x.nama)}</td><td>${x.kelas}</td><td><span class="badge ${x.status==="Hadir"?"bg-success":"bg-warning text-dark"}">${x.status}</span></td></tr>`).join("") || '<tr><td colspan="4" class="text-center text-muted py-4">Belum ada tap hari ini.</td></tr>'}</tbody></table></div></div></div></div>`);
+  $("#tapBtn").onclick = () => { const done = new Set((db.rfid[todayKey()]||[]).map(x => x.nis)), pool = db.siswa.filter(s => s.status === "Aktif" && !done.has(s.nis));
+    if (!pool.length) return toast("Semua siswa sudah tap hari ini", "info"); tap(pool[Math.floor(Math.random()*pool.length)]); };
+  $("#nisBtn").onclick = () => { const s = db.siswa.find(x => x.nis === $("#nisIn").value.trim()); if (!s) return toast("Kartu tidak dikenali / NIS tidak ditemukan", "danger"); tap(s); };
+}
+function tap(s){
+  const k = todayKey(), log = (db.rfid[k] ||= []);
+  if (log.some(x => x.nis === s.nis)) return toast(s.nama + " sudah tap hari ini", "info");
+  const mnt = 6*60 + 40 + log.length * 3 + Math.floor(Math.random()*3), jam = String(Math.floor(mnt/60)).padStart(2,"0") + ":" + String(mnt%60).padStart(2,"0"), telat = mnt > 7*60 + 30;
+  lastTap = { nis:s.nis, nama:s.nama, kelas:s.kelas, jam, status: telat ? "Terlambat" : "Hadir" }; log.push(lastTap);
+  (db.absensi[k] ||= {})[s.id] = "H"; save(); rfid(); toast(s.nama + " tercatat hadir via RFID");
 }
 
 /* ---------- Init ---------- */

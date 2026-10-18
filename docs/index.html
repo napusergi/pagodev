@@ -490,11 +490,10 @@
                   Sistem manajemen stok barang, rantai pasok, dan laporan
                   keuangan terintegrasi real-time.
                 </p>
-                <a
-                  href="#kontak"
-                  class="btn btn-sm btn-outline-primary w-100 mt-2"
-                  >Detail Sistem</a
-                >
+                <div class="d-flex gap-2 mt-2">
+                  <a href="demo/erp/" target="_blank" class="btn btn-sm btn-primary flex-fill"><i class="fa-solid fa-play me-1"></i> Coba Demo</a>
+                  <button type="button" class="btn btn-sm btn-outline-primary flex-fill" data-bs-toggle="modal" data-bs-target="#videoModal" data-video="video/demo-erp.mp4" data-title="Video Demo - Enterprise ERP &amp; Inventory"><i class="fa-solid fa-video me-1"></i> Video</button>
+                </div>
               </div>
             </div>
           </div>
@@ -510,11 +509,10 @@
                   Aplikasi rekam medis elektronik (EHR) dengan modul antrean dan
                   analitik data pasien.
                 </p>
-                <a
-                  href="#kontak"
-                  class="btn btn-sm btn-outline-primary w-100 mt-2"
-                  >Detail Sistem</a
-                >
+                <div class="d-flex gap-2 mt-2">
+                  <a href="demo/rekam-medis/" target="_blank" class="btn btn-sm btn-primary flex-fill"><i class="fa-solid fa-play me-1"></i> Coba Demo</a>
+                  <button type="button" class="btn btn-sm btn-outline-primary flex-fill" data-bs-toggle="modal" data-bs-target="#videoModal" data-video="video/demo-rekam-medis.mp4" data-title="Video Demo - Sistem Informasi Rekam Medis"><i class="fa-solid fa-video me-1"></i> Video</button>
+                </div>
               </div>
             </div>
           </div>
@@ -532,7 +530,7 @@
                 </p>
                 <div class="d-flex gap-2 mt-2">
                   <a href="demo/siswa/" target="_blank" class="btn btn-sm btn-primary flex-fill"><i class="fa-solid fa-play me-1"></i> Coba Demo</a>
-                  <button type="button" class="btn btn-sm btn-outline-primary flex-fill" data-bs-toggle="modal" data-bs-target="#videoModal" data-video="video/demo-sistem-informasi-siswa.webm"><i class="fa-solid fa-video me-1"></i> Video</button>
+                  <button type="button" class="btn btn-sm btn-outline-primary flex-fill" data-bs-toggle="modal" data-bs-target="#videoModal" data-video="video/demo-sistem-informasi-siswa.mp4" data-title="Video Demo - Smart Campus &amp; LMS Portal"><i class="fa-solid fa-video me-1"></i> Video</button>
                 </div>
               </div>
             </div>
@@ -757,7 +755,7 @@
       <div class="modal-dialog modal-lg modal-dialog-centered">
         <div class="modal-content">
           <div class="modal-header">
-            <h5 class="modal-title">Video Demo - Sistem Informasi Siswa</h5>
+            <h5 class="modal-title" id="videoTitle">Video Demo</h5>
             <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
           </div>
           <div class="modal-body p-0">
@@ -770,6 +768,7 @@
       const vm = document.getElementById("videoModal");
       vm.addEventListener("show.bs.modal", (e) => {
         const v = document.getElementById("videoFrame");
+        document.getElementById("videoTitle").innerHTML = e.relatedTarget.dataset.title || "Video Demo";
         v.src = e.relatedTarget.dataset.video;
         v.play().catch(() => {});
       });

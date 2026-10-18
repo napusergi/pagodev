@@ -1,0 +1,281 @@
+<!doctype html>
+<html lang="id">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Demo Sistem Informasi Kampung - Pagodev</title>
+<link rel="icon" type="image/png" href="../../foto/pagodev-icon-true.png" />
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+<style>
+  :root { --navy:#0f172a; --navy2:#1e293b; --blue:#0284c7; --sky:#38bdf8; }
+  body { font-family:"Plus Jakarta Sans",sans-serif; background:#f1f5f9; color:#0f172a; }
+  .demo-bar { background:#0284c7; color:#fff; font-size:.82rem; padding:6px 12px; text-align:center; position:sticky; top:0; z-index:1100; }
+  .demo-bar a { color:#fff; font-weight:700; }
+  #login { min-height:calc(100vh - 32px); background:linear-gradient(180deg,var(--navy),var(--navy2)); display:flex; align-items:center; justify-content:center; padding:16px; }
+  .login-card { max-width:400px; width:100%; border-radius:16px; border:0; }
+  .app-wrap { display:flex; min-height:calc(100vh - 32px); }
+  .sidebar { width:240px; background:var(--navy); color:#cbd5e1; flex-shrink:0; padding:20px 12px; }
+  .sidebar .brand { color:#fff; font-weight:800; padding:0 10px 18px; border-bottom:1px solid #334155; margin-bottom:14px; }
+  .sidebar .brand small { display:block; color:var(--sky); font-weight:600; font-size:.7rem; }
+  .sidebar a.nav-item { display:flex; align-items:center; gap:10px; color:#cbd5e1; text-decoration:none; padding:10px 12px; border-radius:8px; font-weight:500; cursor:pointer; margin-bottom:2px; }
+  .sidebar a.nav-item:hover { background:var(--navy2); }
+  .sidebar a.nav-item.active { background:var(--blue); color:#fff; }
+  .main { flex:1; min-width:0; }
+  .topbar { background:#fff; border-bottom:1px solid #e2e8f0; padding:12px 24px; display:flex; align-items:center; justify-content:space-between; }
+  .content { padding:24px; }
+  .stat { border:0; border-radius:12px; border-left:4px solid var(--blue); box-shadow:0 1px 3px rgba(0,0,0,.06); }
+  .stat .ico { width:44px; height:44px; border-radius:10px; background:#e0f2fe; color:var(--blue); display:flex; align-items:center; justify-content:center; font-size:1.2rem; flex-shrink:0; }
+  .card { border:0; border-radius:12px; box-shadow:0 1px 3px rgba(0,0,0,.06); }
+  .table th { font-size:.78rem; text-transform:uppercase; color:#64748b; letter-spacing:.03em; white-space:nowrap; }
+  .btn-pago { background:var(--blue); color:#fff; font-weight:700; border:0; }
+  .btn-pago:hover { background:#0369a1; color:#fff; }
+  .bar-row { display:flex; align-items:center; gap:10px; margin-bottom:10px; font-size:.85rem; }
+  .bar-row .lbl { width:130px; font-weight:600; font-size:.8rem; }
+  .bar-row .bar { flex:1; background:#e2e8f0; border-radius:6px; height:14px; overflow:hidden; }
+  .bar-row .bar > div { height:100%; background:linear-gradient(90deg,var(--blue),var(--sky)); border-radius:6px; transition:width .6s; }
+  .chart { display:flex; align-items:flex-end; gap:12px; height:170px; padding:18px 4px 0; border-bottom:1px solid #e2e8f0; }
+  .chart .b { flex:1; border-radius:6px 6px 0 0; background:linear-gradient(180deg,var(--sky),var(--blue)); min-height:2px; position:relative; transition:height .6s; }
+  .chart .b span { position:absolute; top:-17px; left:-10px; right:-10px; text-align:center; font-size:.68rem; font-weight:700; color:#334155; white-space:nowrap; }
+  .xl { display:flex; gap:12px; padding:6px 4px 0; font-size:.75rem; color:#64748b; } .xl div { flex:1; text-align:center; }
+  .hamb { display:none; }
+  @media (max-width:820px) {
+    .sidebar { position:fixed; left:-250px; top:32px; bottom:0; z-index:1050; transition:left .25s; width:240px; }
+    .sidebar.open { left:0; } .hamb { display:inline-block; } .content { padding:14px; } .topbar { padding:10px 14px; } .bar-row .lbl { width:100px; }
+  }
+  @media print { .demo-bar,.sidebar,.topbar,.no-print { display:none !important; } body { background:#fff; } .content { padding:0; } }
+  
+</style>
+</head>
+<body>
+<div class="demo-bar no-print">
+  <i class="fa-solid fa-flask me-1"></i> Ini adalah <b>aplikasi demo</b> dengan data contoh &mdash; dibuat oleh
+  <a href="../../index.html#kontak">Pagodev</a>. Ingin sistem informasi untuk kampung atau desa Anda? <a href="../../index.html#kontak">Hubungi kami</a>
+</div>
+
+<div id="login">
+  <div class="card login-card shadow-lg p-4">
+    <div class="text-center mb-3">
+      <div class="display-5 text-primary"><i class="fa-solid fa-landmark"></i></div>
+      <h4 class="fw-bold mb-0">SI Kampung Demo</h4>
+      <small class="text-muted">Kampung Harapan (data fiktif)</small>
+    </div>
+    <form id="loginForm">
+      <div class="mb-3"><label class="form-label small fw-semibold">Username</label><input id="lu" class="form-control" value="admin" autocomplete="off" /></div>
+      <div class="mb-3"><label class="form-label small fw-semibold">Password</label><input id="lp" type="password" class="form-control" value="admin123" autocomplete="off" /></div>
+      <div id="lerr" class="text-danger small mb-2 d-none">Username atau password salah.</div>
+      <button class="btn btn-pago w-100 py-2">Masuk</button>
+    </form>
+    <div class="alert alert-info small mt-3 mb-0">Akun demo sudah terisi otomatis. Cukup klik <b>Masuk</b>. Seluruh data penduduk adalah fiktif.</div>
+  </div>
+</div>
+
+<div id="app" class="app-wrap d-none">
+  <aside class="sidebar no-print" id="sidebar">
+    <div class="brand"><i class="fa-solid fa-landmark text-info me-1"></i> SI Kampung<small>Kampung Harapan</small></div>
+    <a class="nav-item" data-r="dashboard"><i class="fa-solid fa-gauge-high fa-fw"></i> Dashboard</a>
+    <a class="nav-item" data-r="penduduk"><i class="fa-solid fa-users fa-fw"></i> Data Penduduk</a>
+    <a class="nav-item" data-r="surat"><i class="fa-solid fa-file-signature fa-fw"></i> Layanan Surat</a>
+    <a class="nav-item" data-r="keuangan"><i class="fa-solid fa-coins fa-fw"></i> Keuangan Kampung</a>
+    <a class="nav-item" data-r="info"><i class="fa-solid fa-bullhorn fa-fw"></i> Pengumuman</a>
+    <hr class="border-secondary" />
+    <a class="nav-item" id="btnReset"><i class="fa-solid fa-rotate-left fa-fw"></i> Reset Data Demo</a>
+    <a class="nav-item" id="btnLogout"><i class="fa-solid fa-right-from-bracket fa-fw"></i> Keluar</a>
+  </aside>
+  <div class="main">
+    <div class="topbar no-print">
+      <div><button class="btn btn-sm btn-light hamb me-2" id="hamb"><i class="fa-solid fa-bars"></i></button><b id="pageTitle"></b></div>
+      <div class="small text-muted"><i class="fa-solid fa-circle-user me-1"></i> Operator Kampung</div>
+    </div>
+    <div class="content" id="view"></div>
+  </div>
+</div>
+
+<div class="modal fade" id="mGen" tabindex="-1"><div class="modal-dialog"><form class="modal-content" id="fGen">
+  <div class="modal-header"><h5 class="modal-title" id="gTitle"></h5><button type="button" class="btn-close" data-bs-dismiss="modal"></button></div>
+  <div class="modal-body"><div class="row g-3" id="gBody"></div></div>
+  <div class="modal-footer"><button type="button" class="btn btn-light" data-bs-dismiss="modal">Batal</button><button class="btn btn-pago">Simpan</button></div>
+</form></div></div>
+
+<div class="modal fade" id="mDoc" tabindex="-1"><div class="modal-dialog modal-lg"><div class="modal-content">
+  <div class="modal-header"><h5 class="modal-title" id="dTitle"></h5><button type="button" class="btn-close" data-bs-dismiss="modal"></button></div>
+  <div class="modal-body" id="dBody"></div>
+  <div class="modal-footer"><button type="button" class="btn btn-light" data-bs-dismiss="modal">Tutup</button><button class="btn btn-pago" id="dPrint"><i class="fa-solid fa-print me-1"></i> Cetak</button></div>
+</div></div></div>
+
+<div class="toast-container position-fixed bottom-0 end-0 p-3 no-print"><div id="toast" class="toast text-bg-success border-0"><div class="d-flex"><div class="toast-body" id="toastMsg"></div><button class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast"></button></div></div></div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+const KEY = "pagodev_desa_demo_v1", SK = "pagodev_desa_demo_v1_in";
+const $ = (s, r=document) => r.querySelector(s);
+const esc = s => String(s ?? "").replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+const rp = n => "Rp " + Math.round(n).toLocaleString("id-ID");
+const iso = d => d.toISOString().slice(0,10);
+const todayKey = () => iso(new Date());
+const fmtTgl = t => new Date(t).toLocaleDateString("id-ID", { day:"numeric", month:"short", year:"numeric" });
+const BLN = ["Jan","Feb","Mar","Apr","Mei","Jun","Jul","Agu","Sep","Okt","Nov","Des"];
+function rng(seed){ return () => { seed |= 0; seed = seed + 0x6D2B79F5 | 0; let t = Math.imul(seed ^ seed >>> 15, 1 | seed); t = t + Math.imul(t ^ t >>> 7, 61 | t) ^ t; return ((t ^ t >>> 14) >>> 0) / 4294967296; }; }
+const pick = (r, a) => a[Math.floor(r() * a.length)];
+let db;
+function save(){ try { localStorage.setItem(KEY, JSON.stringify(db)); } catch(e){} }
+function load(){ try { db = JSON.parse(localStorage.getItem(KEY)); } catch(e){ db = null; } if (!db) db = seed(); if (typeof ensure === "function") ensure(); save(); }
+function toast(msg, cls="success"){ const t = $("#toast"); t.className = "toast border-0 text-bg-" + cls; $("#toastMsg").textContent = msg; bootstrap.Toast.getOrCreateInstance(t, {delay:2200}).show(); }
+const view = h => $("#view").innerHTML = h;
+const statCard = (ico, lbl, val, col="col-6 col-lg-3") => `<div class="${col}"><div class="card stat p-3 h-100"><div class="d-flex align-items-center gap-3"><div class="ico"><i class="fa-solid ${ico}"></i></div><div style="min-width:0"><div class="text-muted small">${lbl}</div><div class="fs-5 fw-bold">${val}</div></div></div></div></div>`;
+const barRows = (list, fmt=v=>v) => { const m = Math.max(1, ...list.map(x => x[1])); return list.map(([n,v]) => `<div class="bar-row"><div class="lbl">${esc(n)}</div><div class="bar"><div style="width:${v/m*100}%"></div></div><div class="fw-bold">${fmt(v)}</div></div>`).join("") || '<div class="text-muted small">Belum ada data.</div>'; };
+const colChart = (list, fmt=v=>v) => { const m = Math.max(1, ...list.map(x => x[1])); return `<div class="chart">${list.map(x => `<div class="b" style="height:${x[1]/m*100}%"><span>${fmt(x[1])}</span></div>`).join("")}</div><div class="xl">${list.map(x => `<div>${esc(x[0])}</div>`).join("")}</div>`; };
+function csv(name, head, rows){ const t = [head, ...rows].map(r => r.map(v => `"${String(v ?? "").replace(/"/g,'""')}"`).join(",")).join("\r\n");
+  const a = document.createElement("a"); a.href = URL.createObjectURL(new Blob(["﻿"+t], {type:"text/csv"})); a.download = name; a.click(); }
+
+/* modal formulir generik */
+const mGen = new bootstrap.Modal("#mGen");
+function formModal(title, fields, vals, onSave){
+  $("#gTitle").textContent = title; vals = vals || {};
+  $("#gBody").innerHTML = fields.map(f => { const v = vals[f.id] ?? f.value ?? ""; let inp;
+    if (f.type === "select") inp = `<select id="g_${f.id}" class="form-select">${f.options.map(o => { const [ov, ol] = Array.isArray(o) ? o : [o, o]; return `<option value="${esc(ov)}" ${String(ov)===String(v)?"selected":""}>${esc(ol)}</option>`; }).join("")}</select>`;
+    else if (f.type === "textarea") inp = `<textarea id="g_${f.id}" class="form-control" rows="2">${esc(v)}</textarea>`;
+    else inp = `<input id="g_${f.id}" type="${f.type||"text"}" class="form-control" value="${esc(v)}" ${f.req!==false?"required":""} ${f.min!==undefined?`min="${f.min}"`:""} ${f.ph?`placeholder="${esc(f.ph)}"`:""}>`;
+    return `<div class="col-${f.col||12}"><label class="form-label small fw-semibold">${f.label}</label>${inp}</div>`; }).join("");
+  $("#fGen").onsubmit = e => { e.preventDefault(); const o = {}; fields.forEach(f => { let v = $("#g_"+f.id).value; if (f.type === "number") v = Number(v) || 0; o[f.id] = typeof v === "string" ? v.trim() : v; }); if (onSave(o) !== false) mGen.hide(); };
+  mGen.show();
+}
+/* dokumen / cetak */
+const mDoc = new bootstrap.Modal("#mDoc"); let docHtml = "";
+function showDoc(title, html){ docHtml = html; $("#dTitle").textContent = title; $("#dBody").innerHTML = html; mDoc.show(); }
+$("#dPrint").onclick = () => { const w = window.open("", "_blank", "width=720,height=900"); if (!w) return toast("Pop-up diblokir browser", "danger");
+  w.document.write(`<html><head><title>Cetak</title><style>body{font-family:Arial,sans-serif;padding:24px;color:#000}table{width:100%;border-collapse:collapse}td,th{padding:4px 6px}.b{border:1px solid #000}</style></head><body>${docHtml}</body></html>`); w.document.close(); w.focus(); setTimeout(() => w.print(), 300); };
+
+/* login & router */
+$("#loginForm").addEventListener("submit", e => { e.preventDefault();
+  if ($("#lu").value.trim() === "admin" && $("#lp").value === "admin123") { try { sessionStorage.setItem(SK,"1"); } catch(e){} enter(); } else $("#lerr").classList.remove("d-none"); });
+function enter(){ $("#login").classList.add("d-none"); $("#app").classList.remove("d-none"); go(FIRST); }
+$("#btnLogout").onclick = () => { try { sessionStorage.removeItem(SK); } catch(e){} $("#app").classList.add("d-none"); $("#login").classList.remove("d-none"); };
+$("#btnReset").onclick = () => { if (confirm("Kembalikan semua data ke data contoh awal?")) { db = seed(); if (typeof ensure === "function") ensure(); save(); go(route); toast("Data demo telah direset"); } };
+$("#hamb").onclick = () => $("#sidebar").classList.toggle("open");
+let route = "";
+function go(r){ route = r; $("#pageTitle").textContent = TITLES[r];
+  document.querySelectorAll(".nav-item[data-r]").forEach(a => a.classList.toggle("active", a.dataset.r === r));
+  $("#sidebar").classList.remove("open"); PAGES[r](); window.scrollTo(0,0); }
+document.querySelectorAll(".nav-item[data-r]").forEach(a => a.onclick = () => go(a.dataset.r));
+
+/* ===== APLIKASI ===== */
+const FIRST = "dashboard";
+const TITLES = { dashboard:"Dashboard Kampung", penduduk:"Data Penduduk", surat:"Layanan Surat", keuangan:"Keuangan Kampung", info:"Pengumuman" };
+const KAMPUNG = { nama:"Kampung Harapan", distrik:"Distrik Mimika Baru", kab:"Kabupaten Mimika", kepala:"Yosef Wonda" };
+const DUSUN = ["Dusun I","Dusun II","Dusun III"];
+const KERJA = ["Petani","Nelayan","Pedagang","PNS","Guru","Wiraswasta","Buruh","Pelajar/Mahasiswa","Ibu Rumah Tangga","Belum/Tidak Bekerja"];
+const JSURAT = ["Surat Keterangan Domisili","Surat Keterangan Usaha","Surat Keterangan Tidak Mampu","Surat Pengantar KTP/KK"];
+const BIDANG = ["Penyelenggaraan Pemerintahan","Pelaksanaan Pembangunan","Pembinaan Kemasyarakatan","Pemberdayaan Masyarakat","Kesehatan & Penanggulangan Bencana"];
+const SUMBER = ["Dana Kampung","Alokasi Dana Kampung","Pendapatan Asli Kampung"];
+
+function seed(){
+  const r = rng(77), now = new Date();
+  const L = ["Andi","Yosef","Marthen","Daniel","Samuel","Yohanis","Petrus","Markus","Elias","Frans","Simon","Hendrik","Agus","Rudi","Ahmad"], P = ["Maria","Natalia","Agnes","Dorkas","Rina","Siti","Sarah","Lidia","Martha","Yuliana","Ester","Rosalina","Wati","Fitri","Ani"];
+  const B = ["Wonda","Tabuni","Kogoya","Rumbiak","Mote","Magai","Waker","Kum","Gobay","Hasan","Saputra","Nugroho","Mayau","Pigai","Dimara"];
+  const rr = (a,b) => a + Math.floor(r()*(b-a+1)), pend = [];
+  for (let k = 0; k < 16; k++) {
+    const marga = pick(r,B), noKk = "9201" + String(100000000 + k*7919).slice(0,9) + String(1000+k), dusun = DUSUN[k%3], rt = "0" + rr(1,3);
+    const add = (nama, jk, y, status, kerja, hub) => pend.push({ id:"w"+pend.length, nik:"9201" + String(rr(1e11,9e11-1)), kk:noKk, nama:nama+" "+marga, jk, lahir:`${y}-${String(rr(1,12)).padStart(2,"0")}-${String(rr(1,28)).padStart(2,"0")}`, kerja, dusun, rt, rw:"01", status, hub });
+    const yk = rr(1962,1992); add(pick(r,L), "L", yk, "Kawin", pick(r,KERJA.slice(0,7)), "Kepala Keluarga"); add(pick(r,P), "P", yk + rr(0,5), "Kawin", pick(r,["Ibu Rumah Tangga","Pedagang","Guru","Petani"]), "Istri");
+    for (let a = rr(0,3); a > 0; a--) { const jk = r() < .5 ? "L" : "P", y = rr(2004,2023); add(pick(r, jk==="L"?L:P), jk, y, "Belum Kawin", now.getFullYear()-y >= 7 && now.getFullYear()-y <= 22 ? "Pelajar/Mahasiswa" : "Belum/Tidak Bekerja", "Anak"); }
+  }
+  const surat = []; const js = (i, n) => { const p = pend[Math.floor(r()*pend.length)], d = new Date(now); d.setDate(d.getDate() - Math.floor(r()*20)); surat.push({ id:"s"+i, no:"", tgl:iso(d), jenis:JSURAT[i%4], pid:p.id, perlu:["Melamar pekerjaan","Keperluan beasiswa","Pengurusan KTP","Pengajuan KUR","Keperluan sekolah"][i%5] }); };
+  for (let i = 0; i < 8; i++) js(i);
+  surat.sort((a,b) => a.tgl < b.tgl ? -1 : 1).forEach((s,i) => s.no = String(i+1).padStart(3,"0") + "/SK/KMP-HRP/" + ["I","II","III","IV","V","VI","VII","VIII","IX","X","XI","XII"][new Date(s.tgl).getMonth()] + "/" + new Date(s.tgl).getFullYear());
+  const y = now.getFullYear(), keu = [], dt = (m, d) => `${y}-${String(m).padStart(2,"0")}-${String(d).padStart(2,"0")}`, mm = now.getMonth() + 1;
+  const inc = (m,d,s,u,j) => { if (m <= mm) keu.push({ id:"k"+keu.length, tgl:dt(m,d), jenis:"masuk", kat:s, uraian:u, jumlah:j }); };
+  const out = (m,d,s,u,j) => { if (m <= mm) keu.push({ id:"k"+keu.length, tgl:dt(m,d), jenis:"keluar", kat:s, uraian:u, jumlah:j }); };
+  inc(2,10,SUMBER[0],"Dana Kampung Tahap I",320000000); inc(6,12,SUMBER[0],"Dana Kampung Tahap II",320000000); inc(3,5,SUMBER[1],"ADK Triwulan I",85000000); inc(7,5,SUMBER[1],"ADK Triwulan II",85000000); inc(5,20,SUMBER[2],"Sewa balai kampung & retribusi",6500000);
+  out(2,25,BIDANG[0],"Siltap & operasional pemerintah kampung",64000000); out(4,14,BIDANG[1],"Pembangunan jalan lingkungan Dusun I",145000000); out(5,18,BIDANG[2],"Kegiatan kepemudaan & olahraga",12500000);
+  out(7,9,BIDANG[3],"Pelatihan usaha ekonomi produktif",18000000); out(8,22,BIDANG[4],"Posyandu & pemberian makanan tambahan",15500000); out(9,6,BIDANG[1],"Rehabilitasi balai kampung",92000000); out(9,28,BIDANG[0],"Siltap & operasional pemerintah kampung",64000000);
+  const info = [["Musyawarah Kampung Penyusunan RKP","Seluruh warga diundang hadir di Balai Kampung pada Sabtu pukul 09.00 WIT.",-2],["Posyandu Balita dan Lansia","Pelayanan Posyandu bulan ini dilaksanakan di setiap dusun sesuai jadwal.",-5],["Kerja Bakti Pembersihan Lingkungan","Dimohon membawa peralatan kebersihan masing-masing.",-9],["Pembukaan Layanan Surat Online","Warga kini dapat mengurus surat keterangan melalui kantor kampung dengan antrean lebih singkat.",-14]]
+    .map((x,i) => { const d = new Date(now); d.setDate(d.getDate() + x[2]); return { id:"i"+i, judul:x[0], isi:x[1], tgl:iso(d) }; });
+  return { pend, surat, keu, info };
+}
+const pen = id => db.pend.find(p => p.id === id);
+const umur = l => { const b = new Date(l), n = new Date(); let a = n.getFullYear() - b.getFullYear(); if (n < new Date(n.getFullYear(), b.getMonth(), b.getDate())) a--; return a; };
+const saldo = () => db.keu.reduce((a,k) => a + (k.jenis === "masuk" ? k.jumlah : -k.jumlah), 0);
+
+function dashboard(){
+  const kk = new Set(db.pend.map(p => p.kk)).size, L = db.pend.filter(p => p.jk === "L").length, bln = todayKey().slice(0,7);
+  const dus = DUSUN.map(d => [d, db.pend.filter(p => p.dusun === d).length]);
+  const grp = [["0-14",0,14],["15-24",15,24],["25-44",25,44],["45-59",45,59],["60+",60,200]].map(([n,a,b]) => [n+" th", db.pend.filter(p => umur(p.lahir) >= a && umur(p.lahir) <= b).length]);
+  view(`<div class="row g-3 mb-3">${statCard("fa-users","Jumlah Penduduk",db.pend.length)}${statCard("fa-house-user","Kepala Keluarga",kk)}${statCard("fa-file-lines","Surat Bulan Ini",db.surat.filter(s => s.tgl.startsWith(bln)).length)}${statCard("fa-wallet","Saldo Kas Kampung",rp(saldo()))}</div>
+  <div class="row g-3"><div class="col-lg-4"><div class="card p-3 h-100"><h6 class="fw-bold mb-3">Penduduk per Dusun</h6>${barRows(dus)}<div class="small text-muted mt-2"><i class="fa-solid fa-mars text-primary"></i> Laki-laki <b>${L}</b> &nbsp; <i class="fa-solid fa-venus text-danger"></i> Perempuan <b>${db.pend.length - L}</b></div></div></div>
+  <div class="col-lg-4"><div class="card p-3 h-100"><h6 class="fw-bold mb-3">Kelompok Umur</h6>${barRows(grp)}</div></div>
+  <div class="col-lg-4"><div class="card p-3 h-100"><h6 class="fw-bold mb-3">Pengumuman Terbaru</h6>${[...db.info].sort((a,b)=>a.tgl<b.tgl?1:-1).slice(0,3).map((x,i) => `<div class="py-2 ${i?"border-top":""}"><div class="fw-semibold small">${esc(x.judul)}</div><div class="small text-muted">${fmtTgl(x.tgl)}</div></div>`).join("")}</div></div></div>`);
+}
+
+/* ---- Penduduk ---- */
+let q = "", fd = "";
+function penduduk(){
+  view(`<div class="card p-3"><div class="d-flex flex-wrap gap-2 mb-3 align-items-center"><div class="input-group" style="max-width:280px"><span class="input-group-text"><i class="fa-solid fa-magnifying-glass"></i></span><input id="q" class="form-control" placeholder="Cari nama / NIK..." value="${esc(q)}"></div>
+    <select id="fd" class="form-select" style="max-width:150px"><option value="">Semua Dusun</option>${DUSUN.map(d=>`<option ${d===fd?"selected":""}>${d}</option>`).join("")}</select>
+    <div class="ms-auto d-flex gap-2"><button class="btn btn-outline-secondary" onclick="expPen()"><i class="fa-solid fa-file-csv me-1"></i> Ekspor CSV</button><button class="btn btn-pago" onclick="formPen()"><i class="fa-solid fa-user-plus me-1"></i> Tambah Penduduk</button></div></div>
+    <div class="table-responsive"><table class="table table-hover align-middle mb-0"><thead><tr><th>NIK</th><th>Nama</th><th>L/P</th><th>Umur</th><th>Pekerjaan</th><th>Dusun/RT</th><th>Status</th><th class="text-end">Aksi</th></tr></thead><tbody id="tb"></tbody></table></div><div class="small text-muted mt-2" id="cnt"></div></div>`);
+  $("#q").oninput = e => { q = e.target.value; prow(); }; $("#fd").onchange = e => { fd = e.target.value; prow(); }; prow();
+}
+const pl = () => { const t = q.toLowerCase(); return db.pend.filter(p => (!fd || p.dusun === fd) && (!t || p.nama.toLowerCase().includes(t) || p.nik.includes(t))); };
+function prow(){ const l = pl(); $("#tb").innerHTML = l.slice(0,40).map(p => `<tr><td class="small">${p.nik}</td><td class="fw-semibold">${esc(p.nama)}<div class="small text-muted fw-normal">${esc(p.hub)}</div></td><td>${p.jk}</td><td>${umur(p.lahir)} th</td><td>${esc(p.kerja)}</td><td>${p.dusun} / RT ${p.rt}</td><td><span class="badge text-bg-light border">${p.status}</span></td>
+  <td class="text-end text-nowrap"><button class="btn btn-sm btn-outline-success" title="Buat surat" onclick="formSurat('${p.id}')"><i class="fa-solid fa-file-signature"></i></button> <button class="btn btn-sm btn-outline-primary" onclick="formPen('${p.id}')"><i class="fa-solid fa-pen"></i></button> <button class="btn btn-sm btn-outline-danger" onclick="hapusPen('${p.id}')"><i class="fa-solid fa-trash"></i></button></td></tr>`).join("") || '<tr><td colspan="8" class="text-center text-muted py-4">Tidak ada data.</td></tr>';
+  $("#cnt").textContent = `Menampilkan ${Math.min(40,l.length)} dari ${l.length} penduduk (total ${db.pend.length})`; }
+function formPen(id){ const p = pen(id);
+  formModal(id ? "Edit Penduduk" : "Tambah Penduduk", [{id:"nik",label:"NIK",col:6,ph:"16 digit"},{id:"nama",label:"Nama Lengkap",col:6},{id:"jk",label:"Jenis Kelamin",type:"select",options:[["L","Laki-laki"],["P","Perempuan"]],col:4},{id:"lahir",label:"Tanggal Lahir",type:"date",col:4},{id:"status",label:"Status Kawin",type:"select",options:["Belum Kawin","Kawin","Cerai"],col:4},
+    {id:"kerja",label:"Pekerjaan",type:"select",options:KERJA,col:6},{id:"dusun",label:"Dusun",type:"select",options:DUSUN,col:3},{id:"rt",label:"RT",col:3,value:"01"}], p, o => {
+    if (p) Object.assign(p, o); else db.pend.push({ id:"w"+Date.now(), kk:"-", rw:"01", hub:"Anggota", ...o }); save(); prow(); toast(p ? "Data penduduk diperbarui" : "Penduduk baru ditambahkan"); }); }
+function hapusPen(id){ const p = pen(id); if (!confirm(`Hapus data "${p.nama}"?`)) return; db.pend = db.pend.filter(x => x.id !== id); save(); prow(); toast("Data dihapus"); }
+function expPen(){ csv("penduduk.csv", ["NIK","Nama","JK","Lahir","Pekerjaan","Dusun","RT","Status"], pl().map(p => [p.nik,p.nama,p.jk,p.lahir,p.kerja,p.dusun,p.rt,p.status])); }
+
+/* ---- Surat ---- */
+const ROM = ["I","II","III","IV","V","VI","VII","VIII","IX","X","XI","XII"];
+function surat(){
+  view(`<div class="card p-3"><div class="d-flex mb-3 align-items-center"><div class="text-muted small">Surat dibuat otomatis dari data penduduk, lengkap dengan nomor surat berurutan.</div><button class="btn btn-pago ms-auto" onclick="formSurat()"><i class="fa-solid fa-file-circle-plus me-1"></i> Buat Surat Baru</button></div>
+    <div class="table-responsive"><table class="table table-hover align-middle mb-0"><thead><tr><th>No. Surat</th><th>Tanggal</th><th>Jenis</th><th>Pemohon</th><th>Keperluan</th><th></th></tr></thead><tbody>
+    ${[...db.surat].sort((a,b)=>a.tgl<b.tgl?1:-1).map(s => `<tr><td class="small fw-semibold">${s.no}</td><td>${fmtTgl(s.tgl)}</td><td>${s.jenis}</td><td>${esc(pen(s.pid)?.nama || "-")}</td><td>${esc(s.perlu)}</td><td class="text-end"><button class="btn btn-sm btn-outline-primary" onclick="lihatSurat('${s.id}')"><i class="fa-solid fa-print me-1"></i>Cetak</button></td></tr>`).join("")}</tbody></table></div></div>`);
+}
+function formSurat(pid){
+  formModal("Buat Surat Keterangan", [{id:"jenis",label:"Jenis Surat",type:"select",options:JSURAT},{id:"pid",label:"Pemohon",type:"select",options:db.pend.map(p => [p.id, p.nama + " (" + p.nik.slice(-6) + ")"])},{id:"perlu",label:"Keperluan",value:"Keperluan administrasi"}], { pid }, o => {
+    const n = db.surat.length + 1, d = new Date(); const s = { id:"s"+Date.now(), no:String(n).padStart(3,"0") + "/SK/KMP-HRP/" + ROM[d.getMonth()] + "/" + d.getFullYear(), tgl:todayKey(), ...o }; db.surat.push(s); save(); if (route === "surat") surat(); toast("Surat nomor " + s.no + " dibuat"); setTimeout(() => lihatSurat(s.id), 400); }); }
+function lihatSurat(id){
+  const s = db.surat.find(x => x.id === id), p = pen(s.pid) || {}, isi = {
+    [JSURAT[0]]: `bahwa nama tersebut di atas benar-benar penduduk yang berdomisili di ${KAMPUNG.nama}, ${p.dusun}, RT ${p.rt}/RW ${p.rw}, ${KAMPUNG.distrik}.`,
+    [JSURAT[1]]: `bahwa nama tersebut di atas benar memiliki usaha (${p.kerja}) yang berlokasi di wilayah ${KAMPUNG.nama} dan usaha tersebut berjalan dengan baik.`,
+    [JSURAT[2]]: `bahwa nama tersebut di atas benar warga ${KAMPUNG.nama} yang tergolong keluarga kurang mampu berdasarkan data dan pengamatan aparat kampung.`,
+    [JSURAT[3]]: `bahwa nama tersebut di atas adalah benar warga ${KAMPUNG.nama} dan bermaksud mengurus dokumen kependudukan (KTP/KK).` }[s.jenis];
+  showDoc(s.jenis, `<div style="font-family:'Times New Roman',serif;font-size:14px;line-height:1.5"><div style="text-align:center;border-bottom:3px double #000;padding-bottom:8px;margin-bottom:12px"><b>PEMERINTAH ${KAMPUNG.kab.toUpperCase()}<br>${KAMPUNG.distrik.toUpperCase()}<br>${KAMPUNG.nama.toUpperCase()}</b></div>
+    <div style="text-align:center"><b><u>${s.jenis.toUpperCase()}</u></b><br>Nomor: ${s.no}</div><p class="mt-3">Yang bertanda tangan di bawah ini, Kepala ${KAMPUNG.nama}, menerangkan bahwa:</p>
+    <table style="margin-left:24px"><tr><td width="130">Nama</td><td>: <b>${esc(p.nama)}</b></td></tr><tr><td>NIK</td><td>: ${p.nik}</td></tr><tr><td>Jenis Kelamin</td><td>: ${p.jk === "L" ? "Laki-laki" : "Perempuan"}</td></tr><tr><td>Tanggal Lahir</td><td>: ${p.lahir ? fmtTgl(p.lahir) : "-"}</td></tr><tr><td>Pekerjaan</td><td>: ${esc(p.kerja)}</td></tr><tr><td>Alamat</td><td>: ${p.dusun}, RT ${p.rt}/RW ${p.rw}</td></tr></table>
+    <p class="mt-3">Menerangkan ${isi}</p><p>Surat keterangan ini dibuat untuk keperluan: <b>${esc(s.perlu)}</b>. Demikian surat ini dibuat untuk dipergunakan sebagaimana mestinya.</p>
+    <div style="text-align:right;margin-top:24px">${KAMPUNG.nama}, ${fmtTgl(s.tgl)}<br>Kepala Kampung<br><br><br><br><b><u>${KAMPUNG.kepala}</u></b></div></div>`);
+}
+
+/* ---- Keuangan ---- */
+function keuangan(){
+  const m = db.keu.filter(k => k.jenis === "masuk").reduce((a,k)=>a+k.jumlah,0), k = db.keu.filter(x => x.jenis === "keluar").reduce((a,x)=>a+x.jumlah,0);
+  const per = BIDANG.map(b => [b, db.keu.filter(x => x.kat === b).reduce((a,x)=>a+x.jumlah,0)]);
+  view(`<div class="d-flex mb-3 no-print gap-2"><button class="btn btn-pago" onclick="formKeu()"><i class="fa-solid fa-plus me-1"></i> Catat Transaksi</button><button class="btn btn-outline-secondary ms-auto" onclick="window.print()"><i class="fa-solid fa-print me-1"></i> Cetak / Simpan PDF</button></div>
+  <div class="row g-3 mb-3">${statCard("fa-arrow-down","Total Pendapatan",rp(m),"col-md-4")}${statCard("fa-arrow-up","Total Belanja",rp(k),"col-md-4")}${statCard("fa-wallet","Saldo Kas",rp(m-k),"col-md-4")}</div>
+  <div class="row g-3"><div class="col-lg-5"><div class="card p-3 h-100"><h6 class="fw-bold mb-3">Realisasi Belanja per Bidang</h6>${barRows(per.map(([n,v],i) => [["Pemerintahan","Pembangunan","Pembinaan","Pemberdayaan","Kesehatan"][i], v]), v => Math.round(v/1e6) + " jt")}</div></div>
+  <div class="col-lg-7"><div class="card p-3 h-100"><h6 class="fw-bold mb-3">Buku Kas Umum</h6><div class="table-responsive" style="max-height:340px;overflow:auto"><table class="table table-sm align-middle"><thead><tr><th>Tanggal</th><th>Uraian</th><th class="text-end">Masuk</th><th class="text-end">Keluar</th></tr></thead><tbody>
+  ${[...db.keu].sort((a,b)=>a.tgl<b.tgl?1:-1).map(x => `<tr><td class="text-nowrap small">${fmtTgl(x.tgl)}</td><td class="small">${esc(x.uraian)}<div class="text-muted" style="font-size:.7rem">${esc(x.kat)}</div></td><td class="text-end text-success small">${x.jenis==="masuk"?rp(x.jumlah):""}</td><td class="text-end text-danger small">${x.jenis==="keluar"?rp(x.jumlah):""}</td></tr>`).join("")}</tbody></table></div></div></div></div>`);
+}
+function formKeu(){ formModal("Catat Transaksi Keuangan", [{id:"jenis",label:"Jenis",type:"select",options:[["masuk","Pendapatan"],["keluar","Belanja"]],col:6},{id:"tgl",label:"Tanggal",type:"date",value:todayKey(),col:6},{id:"kat",label:"Sumber / Bidang",type:"select",options:[...SUMBER, ...BIDANG]},{id:"uraian",label:"Uraian"},{id:"jumlah",label:"Jumlah (Rp)",type:"number",min:1}], null, o => {
+  db.keu.push({ id:"k"+Date.now(), ...o }); save(); keuangan(); toast("Transaksi keuangan dicatat"); }); }
+
+/* ---- Pengumuman ---- */
+function info(){
+  view(`<div class="d-flex mb-3"><button class="btn btn-pago ms-auto" onclick="formInfo()"><i class="fa-solid fa-bullhorn me-1"></i> Buat Pengumuman</button></div><div class="row g-3">
+    ${[...db.info].sort((a,b)=>a.tgl<b.tgl?1:-1).map(x => `<div class="col-md-6"><div class="card p-3 h-100"><div class="d-flex justify-content-between"><span class="badge bg-primary align-self-start"><i class="fa-solid fa-bullhorn me-1"></i>Pengumuman</span><button class="btn btn-sm btn-outline-danger" onclick="hapusInfo('${x.id}')"><i class="fa-solid fa-trash"></i></button></div><h6 class="fw-bold mt-2">${esc(x.judul)}</h6><div class="small text-muted mb-2">${fmtTgl(x.tgl)}</div><div class="small">${esc(x.isi)}</div></div></div>`).join("")}</div>`);
+}
+function formInfo(){ formModal("Buat Pengumuman", [{id:"judul",label:"Judul"},{id:"isi",label:"Isi Pengumuman",type:"textarea"}], null, o => { db.info.push({ id:"i"+Date.now(), tgl:todayKey(), ...o }); save(); info(); toast("Pengumuman dipublikasikan"); }); }
+function hapusInfo(id){ db.info = db.info.filter(x => x.id !== id); save(); info(); toast("Pengumuman dihapus"); }
+const PAGES = { dashboard, penduduk, surat, keuangan, info };
+
+
+load();
+try { if (sessionStorage.getItem(SK)) enter(); } catch(e){}
+</script>
+</body>
+</html>

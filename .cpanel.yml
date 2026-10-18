@@ -4,3 +4,4 @@ deployment:
     - export DEPLOYPATH=/home/napuiyai/public_html/pagodev/
     - /bin/mkdir -p $DEPLOYPATH
     - /bin/cp -R docs/. $DEPLOYPATH
+    - /bin/chmod -R u+rwX,go+rX $DEPLOYPATH

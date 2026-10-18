@@ -7,13 +7,14 @@ Website portofolio Pagodev - Modern Software House & IT Solutions, Timika.
 docs/                      # seluruh isi situs (GitHub Pages + hosting)
 ├─ index.html              # halaman utama
 ├─ foto/                   # logo yang dipakai di halaman
-├─ demo/siswa/index.html   # demo interaktif Sistem Informasi Siswa
+├─ demo/                   # demo interaktif: erp, rekam-medis, siswa, kasir, desa, gereja
 └─ video/                  # video demo (diputar dari GitHub Pages)
 aset-logo/                 # arsip logo yang belum dipakai (tidak dipublikasikan)
 .cpanel.yml                # instruksi deploy ke cPanel (Jagoan Hosting)
 ```
 
 ## Demo
+- Enam demo: ERP & Inventory, Rekam Medis, Smart Campus (siswa, LMS, RFID), Kasir/POS, Sistem Informasi Kampung, Sistem Informasi Gereja
 - Akun demo: `admin` / `admin123` (data contoh, tersimpan di browser pengunjung)
 
 ## Deploy
